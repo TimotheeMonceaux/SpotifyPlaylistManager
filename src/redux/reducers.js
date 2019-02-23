@@ -1,7 +1,22 @@
 import {combineReducers} from 'redux';
+import {ActionType} from './actions';
 
-const text = (text = "BONJOUR", action) => {return action.type};
 
-const reducer = combineReducers ({text});
+const clientId = (clientId = "", action) => {
+    if (action.type === ActionType.ADD_CLIENT_ID)
+        return action.clientId
+    return clientId
+};
+
+const userToken = (userToken = "", action) => {
+    if (action.type === ActionType.ADD_USER_TOKEN)
+        return action.userTolken
+    return userToken
+};
+
+const reducer = combineReducers ({
+    clientId, 
+    userToken
+});
 
 export default reducer;

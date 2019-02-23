@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import CustomButton from './components/example';
+import Controller from './components/Controller';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <CustomButton />
+        <Controller />
       </div>
     );
   }

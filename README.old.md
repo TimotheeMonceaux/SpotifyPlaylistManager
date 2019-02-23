@@ -1,0 +1,2 @@
+# SpotifyPlaylistManager
+Spotify Playlist Manager

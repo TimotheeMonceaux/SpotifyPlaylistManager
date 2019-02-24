@@ -1,18 +1,24 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { ActionCreator } from '../redux/actions';
+import LoginButton from './LoginButton';
 
 
 // TO REMOVE - BASIC EXAMPLE OF A REDUX COMPONENT'S STRUCTURE
 
 // Presentational Component
-const PController = ({clientId, userToken}) => {
+const PController = ({clientId, userToken, onClientIdFetched}) => {
     if (clientId === "") {
-        // Fetch client id
-        return <p>Loading...</p>
+        fetch("/config/spotify.json")
+            .then(response => response.json())
+            .then(json => onClientIdFetched(json))
+            .catch(error => console.log(error));
+
+        return <p>Loading...</p>;
     }
     if (userToken === "") {
-        return <p>Login</p>
+        return <LoginButton />
     }
     return <p>Hello, World!</p>
 }
@@ -30,7 +36,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        // onPCustomButtonClick: () => {dispatch({type:"Hello, World!"})}
+         onClientIdFetched: (json) => {dispatch(ActionCreator.addClientId(json.clientId))}
     }
 }
 const Controller = connect(

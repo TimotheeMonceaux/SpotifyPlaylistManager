@@ -21,7 +21,7 @@ export const ActionType = {
 
 export const ActionCreator = {
     addClientId: (clientId) => ({type: ActionType.ADD_CLIENT_ID, clientId: clientId}),
-    addUserToken: (userToken) => ({type: ActionType.ADD_CLIENT_ID, userToken: userToken})
+    addUserToken: (userToken) => ({type: ActionType.ADD_USER_TOKEN, userToken: userToken})
 };
 
 // export function addTodo(text) {

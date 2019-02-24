@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../redux/actions';
 import LoginButton from './LoginButton';
+import queryString from 'query-string';
 
-
-// TO REMOVE - BASIC EXAMPLE OF A REDUX COMPONENT'S STRUCTURE
 
 // Presentational Component
-const PController = ({clientId, userToken, onClientIdFetched}) => {
+const PController = ({clientId, userToken, onClientIdFetched, location, onUserTokenInHash}) => {
     if (clientId === "") {
         fetch("/config/spotify.json")
             .then(response => response.json())
@@ -18,7 +17,12 @@ const PController = ({clientId, userToken, onClientIdFetched}) => {
         return <p>Loading...</p>;
     }
     if (userToken === "") {
-        return <LoginButton />
+        if (location.hash !== "") {
+            var parsed = queryString.parse(location.hash);
+            onUserTokenInHash(parsed);
+            return <p>Loading...</p>;
+        }
+        return <LoginButton />;
     }
     return <p>Hello, World!</p>
 }
@@ -36,7 +40,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-         onClientIdFetched: (json) => {dispatch(ActionCreator.addClientId(json.clientId))}
+         onClientIdFetched: (json) => {dispatch(ActionCreator.addClientId(json.clientId))},
+         onUserTokenInHash: (json) => {dispatch(ActionCreator.addUserToken(json.access_token))}
     }
 }
 const Controller = connect(

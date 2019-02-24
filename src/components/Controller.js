@@ -44,7 +44,10 @@ const PController = ({clientId, userToken, userProfile, location, onClientIdFetc
                 .catch(error => console.log(error))
         return <VLayout><HLayout><Loading /></HLayout></VLayout>;
     }
-    return <VLayout><HLayout><UserProfileCard /></HLayout></VLayout>;
+    return <VLayout>
+               <HLayout><UserProfileCard /></HLayout>
+               <HLayout><Loading /></HLayout>
+            </VLayout>;
 }
 PController.propTypes = {
     clientId: PropTypes.string.isRequired,

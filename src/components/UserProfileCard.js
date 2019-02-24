@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { VLayout, HLayout } from './Layout';
+import { isNullOrEmpty } from '../utils/object';
 
 const Card = styled.div`
     border: solid 3px lightgray;
     border-radius: 10px;
     padding: 25px;
-    background-color: #323232;
+    background-color: #4B4B4B;
 `;
 const Avatar = styled.div`
     background: url(${props => props.url}) 50% 50% no-repeat;
@@ -32,7 +33,7 @@ const Email = styled.div`
 const PUserProfileCard = ({userProfile}) => 
     <Card>
         <HLayout>
-            <Avatar url={userProfile.images[0].url}></Avatar>
+            <Avatar url={isNullOrEmpty(userProfile.images) ? "http://groovesharks.org/assets/images/default_avatar.jpg" : userProfile.images[0].url}></Avatar>
             <VLayout>
                 <DisplayName>{userProfile.display_name}</DisplayName>
                 <Email>{userProfile.email}</Email>

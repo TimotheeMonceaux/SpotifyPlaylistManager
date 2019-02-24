@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../redux/actions';
 import LoginButton from './LoginButton';
+import {VLayout, HLayout} from './Layout';
 import queryString from 'query-string';
 
 
@@ -22,7 +23,7 @@ const PController = ({clientId, userToken, onClientIdFetched, location, onUserTo
             onUserTokenInHash(parsed);
             return <p>Loading...</p>;
         }
-        return <LoginButton />;
+        return <VLayout><HLayout><LoginButton /></HLayout></VLayout>;
     }
     return <p>Hello, World!</p>
 }

@@ -14,9 +14,16 @@ const userToken = (userToken = "", action) => {
     return userToken;
 };
 
+const userProfile = (userProfile = {}, action) => {
+    if (action.type === ActionType.ADD_USER_PROFILE) {
+        return action.userProfile;}
+    return userProfile;
+}
+
 const reducer = combineReducers ({
     clientId, 
-    userToken
+    userToken,
+    userProfile
 });
 
 export default reducer;

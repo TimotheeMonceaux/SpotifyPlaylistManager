@@ -1,13 +1,10 @@
-//  Action Types
-
 export const ActionType = {
     ADD_CLIENT_ID: 0,
-    ADD_USER_TOKEN: 1
+    ADD_USER_TOKEN: 1,
+    ADD_USER_PROFILE: 2
 }
 
-/*
- * other constants
- */
+// other constants
 
 // export const VisibilityFilters = {
 //   SHOW_ALL: 'SHOW_ALL',
@@ -15,23 +12,8 @@ export const ActionType = {
 //   SHOW_ACTIVE: 'SHOW_ACTIVE'
 // }
 
-/*
- * action creators
- */
-
 export const ActionCreator = {
     addClientId: (clientId) => ({type: ActionType.ADD_CLIENT_ID, clientId: clientId}),
-    addUserToken: (userToken) => ({type: ActionType.ADD_USER_TOKEN, userToken: userToken})
+    addUserToken: (userToken) => ({type: ActionType.ADD_USER_TOKEN, userToken: userToken}),
+    addUserProfile: (userProfile) => ({type: ActionType.ADD_USER_PROFILE, userProfile: userProfile})
 };
-
-// export function addTodo(text) {
-//   return { type: ADD_TODO, text }
-// }
-
-// export function toggleTodo(index) {
-//   return { type: TOGGLE_TODO, index }
-// }
-
-// export function setVisibilityFilter(filter) {
-//   return { type: SET_VISIBILITY_FILTER, filter }
-// }

@@ -6,14 +6,15 @@ import { VLayout, HLayout } from './Layout';
 import LoginButton from './LoginButton';
 import UserProfileCard from './UserProfileCard';
 import Playlists from './Playlists';
+import Library from './Library';
 import Loading from './Loading';
 import queryString from 'query-string';
 import { isNullOrEmpty } from '../utils/object';
 
 
 // Presentational Component
-const PController = ({clientId, userToken, userProfile, userPlaylists, 
-    location, onClientIdFetched, onUserTokenInHash, onUserProfileFetched, onUserPlaylistsFetched}) => {
+const PController = ({clientId, userToken, userProfile, userPlaylists, library,
+    location, onClientIdFetched, onUserTokenInHash, onUserProfileFetched, onUserPlaylistsFetched, onLibraryFetched}) => {
     // Step 1 - Retrieve the app's client id
     if (clientId === "") {
         fetch("/config/spotify.json")
@@ -46,7 +47,7 @@ const PController = ({clientId, userToken, userProfile, userPlaylists,
                 .catch(error => console.log(error))
         return <VLayout><HLayout><Loading /></HLayout></VLayout>;
     }
-    // Step 4 - Retrieve the user playlists
+    // Step 4 - Retrieve the user's playlists
     if (isNullOrEmpty(userPlaylists)) {
         fetch("https://api.spotify.com/v1/me/playlists",
                 {
@@ -63,12 +64,32 @@ const PController = ({clientId, userToken, userProfile, userPlaylists,
                     <HLayout><Loading /></HLayout>
                 </VLayout>;
     }
-    return <HLayout>
+    // Step 5 - Retrieve the user's library
+    if (isNullOrEmpty(library)) {
+        fetch("https://api.spotify.com/v1/me/tracks?limit=50",
+                {
+                    method: 'GET',
+                    headers: new Headers({"Authorization": "Bearer " + userToken}),
+                    mode: 'cors',
+                    cache: 'default' 
+                })
+                .then(response => response.json())
+                .then(json => onLibraryFetched(json))
+                .catch(error => console.log(error))
+        return <HLayout>
                <VLayout>
                    <UserProfileCard />
                    <Playlists />
                 </VLayout>
                 <VLayout><Loading /></VLayout>
+            </HLayout>;
+    }
+    return <HLayout>
+               <VLayout>
+                   <UserProfileCard />
+                   <Playlists />
+                </VLayout>
+                <VLayout><Library /></VLayout>
             </HLayout>;
     
 }
@@ -76,7 +97,8 @@ PController.propTypes = {
     clientId: PropTypes.string.isRequired,
     userToken: PropTypes.string.isRequired,
     userProfile: PropTypes.object.isRequired,
-    userPlaylists: PropTypes.array.isRequired
+    userPlaylists: PropTypes.array.isRequired,
+    library: PropTypes.array.isRequired
 }
 
 // Container Component
@@ -85,7 +107,8 @@ const mapStateToProps = state => {
         clientId: state.clientId,
         userToken: state.userToken,
         userProfile: state.userProfile,
-        userPlaylists: state.userPlaylists
+        userPlaylists: state.userPlaylists,
+        library: state.library
     };
 }
 const mapDispatchToProps = dispatch => {
@@ -93,7 +116,8 @@ const mapDispatchToProps = dispatch => {
          onClientIdFetched: (json) => {dispatch(ActionCreator.addClientId(json.clientId))},
          onUserTokenInHash: (json) => {dispatch(ActionCreator.addUserToken(json.access_token))},
          onUserProfileFetched: (json) => {dispatch(ActionCreator.addUserProfile(json))},
-         onUserPlaylistsFetched: (json) => {dispatch(ActionCreator.addUserPlaylists(json.items))}
+         onUserPlaylistsFetched: (json) => {dispatch(ActionCreator.addUserPlaylists(json.items))},
+         onLibraryFetched: (json) => {dispatch(ActionCreator.appendLibraryTracks(json.items))}
     }
 }
 const Controller = connect(

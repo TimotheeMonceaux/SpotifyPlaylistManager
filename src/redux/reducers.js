@@ -1,5 +1,5 @@
-import {combineReducers} from 'redux';
-import {ActionType} from './actions';
+import { combineReducers } from 'redux';
+import { ActionType, LibrarySort } from './actions';
 
 
 const clientId = (clientId = "", action) => {
@@ -22,15 +22,32 @@ const userProfile = (userProfile = {}, action) => {
 
 const userPlaylists = (userPlaylists = [], action) => {
     if (action.type === ActionType.ADD_USER_PLAYLISTS)
-        return action.userPlaylists.map((p) => {p.enabled = true; return p;});
+        return action.userPlaylists.map((p) => Object.assign({}, p, {enabled: true}));
     return userPlaylists;
+}
+
+const library = (library = [], action) => {
+    if (action.type === ActionType.APPEND_LIBRARY_TRACKS)
+        return library.concat(action.tracks);
+    return library;
+}
+
+const librarySort = (librarySort = {sort: LibrarySort.DEFAULT, asc: 1}, action) => {
+    if (action.type === ActionType.CHANGE_LIBRARY_SORT && action.librarySort !== LibrarySort.DEFAULT) {
+        if (librarySort.sort === action.librarySort)
+            return Object.assign({}, librarySort, {asc: -1 * librarySort.asc});
+        return {sort: action.librarySort, asc: 1};
+    }
+    return librarySort;
 }
 
 const reducer = combineReducers ({
     clientId, 
     userToken,
     userProfile,
-    userPlaylists
+    userPlaylists,
+    library,
+    librarySort
 });
 
 export default reducer;

@@ -15,7 +15,7 @@ const StyledLoginButton = styled.a`
 
 // Presentational Component
 const PLoginButton = ({clientId}) => (
-    <StyledLoginButton href={"https://accounts.spotify.com/authorize?client_id="+clientId+"&redirect_uri=http://localhost:3000/callback/&scope=user-read-private%20user-read-email&response_type=token&state=12"}>Log In With Spotify</StyledLoginButton>
+    <StyledLoginButton href={"https://accounts.spotify.com/authorize?client_id="+clientId+"&redirect_uri=http://localhost:3000/callback/&scope=user-read-private%20user-read-email%20user-library-read&response_type=token"}>Log In With Spotify</StyledLoginButton>
 )
 PLoginButton.propTypes = {
     clientId: PropTypes.string.isRequired

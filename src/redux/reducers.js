@@ -20,10 +20,17 @@ const userProfile = (userProfile = {}, action) => {
     return userProfile;
 }
 
+const userPlaylists = (userPlaylists = [], action) => {
+    if (action.type === ActionType.ADD_USER_PLAYLISTS)
+        return action.userPlaylists.map((p) => {p.enabled = true; return p;});
+    return userPlaylists;
+}
+
 const reducer = combineReducers ({
     clientId, 
     userToken,
-    userProfile
+    userProfile,
+    userPlaylists
 });
 
 export default reducer;

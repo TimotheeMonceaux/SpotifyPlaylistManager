@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../redux/actions';
+import { VLayout, HLayout } from './Layout';
 import LoginButton from './LoginButton';
-import {VLayout, HLayout} from './Layout';
+import Loading from './Loading';
 import queryString from 'query-string';
 
 
@@ -15,13 +16,13 @@ const PController = ({clientId, userToken, onClientIdFetched, location, onUserTo
             .then(json => onClientIdFetched(json))
             .catch(error => console.log(error));
 
-        return <p>Loading...</p>;
+        return <VLayout><HLayout><Loading /></HLayout></VLayout>;
     }
     if (userToken === "") {
         if (location.hash !== "") {
             var parsed = queryString.parse(location.hash);
             onUserTokenInHash(parsed);
-            return <p>Loading...</p>;
+            return <VLayout><HLayout><Loading /></HLayout></VLayout>;
         }
         return <VLayout><HLayout><LoginButton /></HLayout></VLayout>;
     }

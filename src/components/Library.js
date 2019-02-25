@@ -41,7 +41,7 @@ const Track = ({track, userPlaylists}) =>
         <td>{track.track.name}</td>
         <td>{track.track.artists[0].name}</td>
         <td>{track.track.album.name}</td>
-        {userPlaylists.filter(p => p.enabled).map(p => <td key={p.id}><img src={Math.random() > 0.5 ? "/img/plus.svg" : "/img/tick.svg"} alt="Not In Playlist" /></td>)}
+        {userPlaylists.filter(p => p.enabled).map(p => <td key={p.id}><img src={p.tracks[track.track.id] === true ? "/img/tick.svg" : "/img/plus.svg"} alt="Not In Playlist" /></td>)}
     </tr>;
 const PLibrary = ({library, librarySort, userPlaylists,  onTitleClicked, onArtistClicked, onAlbumClicked}) => (
     <StyledLibrary>

@@ -22,7 +22,7 @@ const userProfile = (userProfile = {}, action) => {
 
 const userPlaylists = (userPlaylists = [], action) => {
     if (action.type === ActionType.ADD_USER_PLAYLISTS)
-        return action.userPlaylists.map((p) => Object.assign({}, p, {enabled: true}));
+        return action.userPlaylists.map((p) => Object.assign({}, p, {enabled: true, tracks: {}}));
     return userPlaylists;
 }
 

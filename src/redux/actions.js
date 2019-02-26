@@ -70,7 +70,7 @@ export const ActionCreator = {
                                         .then(json => dispatch(ActionCreator.appendLibraryTracks(json.items)))),
     appendLibraryTracks: (tracks) => ({type: ActionType.APPEND_LIBRARY_TRACKS, tracks: tracks}),
     changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),
-    loadPlaylistTracks: (userToken, playlistId) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks?fields=items(track(id))&limit=100",
+    loadPlaylistTracks: (userToken, playlistId, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks?fields=items(track(id))%2Climit%2Cnext%2Coffset%2Cprevious%2Ctotal&limit=100&offset="+offset,
                                                     {
                                                         method: 'GET',
                                                         headers: new Headers({"Authorization": "Bearer " + userToken}),
@@ -78,6 +78,8 @@ export const ActionCreator = {
                                                         cache: 'default' 
                                                     })
                                                 .then(response => response.json(), error => console.log(error))
-                                                .then(json => dispatch(ActionCreator.appendPlaylistTracks(playlistId, json.items)))),
+                                                .then(json => {dispatch(ActionCreator.appendPlaylistTracks(playlistId, json.items))
+                                                               if (json.next !== null)
+                                                                    dispatch(ActionCreator.loadPlaylistTracks(userToken, playlistId, offset + json.limit))})),
     appendPlaylistTracks: (playlistId, tracks) => ({type: ActionType.APPEND_PLAYLIST_TRACKS, playlistId: playlistId, tracks: tracks})
 };

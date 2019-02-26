@@ -41,11 +41,11 @@ const Track = ({track, userPlaylists}) =>
         <td>{track.track.name}</td>
         <td>{track.track.artists[0].name}</td>
         <td>{track.track.album.name}</td>   
-        {userPlaylists.filter(p => p.enabled).map(p => <td key={p.id}><img src={p.tracks[track.track.id] === true ? "/img/tick.svg" : "/img/plus.svg"} alt="Not In Playlist" /></td>)}
+        {userPlaylists.filter(p => p.enabled).map(p => <td key={p.id+track.track.id}><img src={p.tracks[track.track.id] === true ? "/img/tick.svg" : "/img/plus.svg"} alt="Not In Playlist" /></td>)}
     </tr>;
 const PLibrary = ({library, librarySort, userPlaylists,  onTitleClicked, onArtistClicked, onAlbumClicked}) => (
     <StyledLibrary>
-        <table>
+        <table><tbody>
             <tr>
                 <th></th>
                 <th onClick={onTitleClicked}><img src={getTitleArrowsUrl(librarySort)} alt="Sorting Arrows"/> Title</th>
@@ -54,7 +54,7 @@ const PLibrary = ({library, librarySort, userPlaylists,  onTitleClicked, onArtis
                 {userPlaylists.filter(p => p.enabled).map(p => <th key={p.id}>{p.name}</th>)}
             </tr>
             {librarySort.sort === LibrarySort.DEFAULT ? library.map((track) => <Track track={track} userPlaylists={userPlaylists}/>) : library.sort(getLibrarySortingFunction(librarySort)).map((track) => <Track track={track} userPlaylists={userPlaylists}/>)}
-        </table>
+        </tbody></table>
     </StyledLibrary>
 )
 PLibrary.propTypes = {

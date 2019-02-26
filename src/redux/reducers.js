@@ -26,8 +26,8 @@ const userPlaylists = (userPlaylists = [], action) => {
     if (action.type === ActionType.APPEND_PLAYLIST_TRACKS) {
         var index = userPlaylists.findIndex((p) => p.id === action.playlistId);
         return [...userPlaylists.slice(0,index),
-                action.tracks.map(t => t.track.id).reduce((o, id) => {o[id] = true; return o;}, {})
-                ,...userPlaylists.slice(index, userPlaylists.length)]
+                Object.assign({}, userPlaylists[index], {tracks: action.tracks.map(t => t.track.id).reduce((o, id) => {o[id] = true; return o;}, {})})
+                ,...userPlaylists.slice(index+1, userPlaylists.length)]
     }
     return userPlaylists;
 }

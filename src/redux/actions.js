@@ -56,8 +56,9 @@ export const ActionCreator = {
                                                     cache: 'default' 
                                                 })
                                         .then(response => response.json(), error => console.log(error))
-                                        .then(json => dispatch(ActionCreator.addUserPlaylists(json.items)))),
-    addUserPlaylists: (userPlaylists) => ({type: ActionType.ADD_USER_PLAYLISTS, userPlaylists: userPlaylists}),
+                                        .then(json => dispatch(ActionCreator.addUserPlaylists(json.items, userToken)))),
+    addUserPlaylists: (userPlaylists, userToken) => ((dispatch) => {dispatch({type: ActionType.ADD_USER_PLAYLISTS, userPlaylists: userPlaylists});
+                                                         userPlaylists.map(p => dispatch(ActionCreator.loadPlaylistTracks(userToken, p.id)));}),
     loadLibraryTracks: (userToken) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?limit=50",
                                                 {
                                                     method: 'GET',
@@ -77,6 +78,6 @@ export const ActionCreator = {
                                                         cache: 'default' 
                                                     })
                                                 .then(response => response.json(), error => console.log(error))
-                                                .then(json => dispatch(ActionCreator.appendLibraryTracks(json.items)))),
+                                                .then(json => dispatch(ActionCreator.appendPlaylistTracks(playlistId, json.items)))),
     appendPlaylistTracks: (playlistId, tracks) => ({type: ActionType.APPEND_PLAYLIST_TRACKS, playlistId: playlistId, tracks: tracks})
 };

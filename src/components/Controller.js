@@ -70,7 +70,7 @@ const mapDispatchToProps = dispatch => {
     return {
         loadUserProfile: (token) => {dispatch(ActionCreator.loadUserProfile(token))},
         loadUserPlaylists: (token) => {dispatch(ActionCreator.loadUserPlaylists(token))},
-        loadLibraryTracks: (token) => {dispatch(ActionCreator.loadLibraryTracks(token))}
+        loadLibraryTracks: (token) => {dispatch(ActionCreator.loadLibraryTracks(token))},
     }
 }
 const Controller = connect(

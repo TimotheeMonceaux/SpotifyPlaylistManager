@@ -68,5 +68,15 @@ export const ActionCreator = {
                                         .then(response => response.json(), error => console.log(error))
                                         .then(json => dispatch(ActionCreator.appendLibraryTracks(json.items)))),
     appendLibraryTracks: (tracks) => ({type: ActionType.APPEND_LIBRARY_TRACKS, tracks: tracks}),
-    changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort})
+    changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),
+    loadPlaylistTracks: (userToken, playlistId) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks?fields=items(track(id))&limit=100",
+                                                    {
+                                                        method: 'GET',
+                                                        headers: new Headers({"Authorization": "Bearer " + userToken}),
+                                                        mode: 'cors',
+                                                        cache: 'default' 
+                                                    })
+                                                .then(response => response.json(), error => console.log(error))
+                                                .then(json => dispatch(ActionCreator.appendLibraryTracks(json.items)))),
+    appendPlaylistTracks: (playlistId, tracks) => ({type: ActionType.APPEND_PLAYLIST_TRACKS, playlistId: playlistId, tracks: tracks})
 };

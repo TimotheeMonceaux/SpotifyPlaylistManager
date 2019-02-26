@@ -23,6 +23,12 @@ const userProfile = (userProfile = {}, action) => {
 const userPlaylists = (userPlaylists = [], action) => {
     if (action.type === ActionType.ADD_USER_PLAYLISTS)
         return action.userPlaylists.map((p) => Object.assign({}, p, {enabled: true, tracks: {}}));
+    if (action.type === ActionType.APPEND_PLAYLIST_TRACKS) {
+        var index = userPlaylists.findIndex((p) => p.id === action.playlistId);
+        return [...userPlaylists.slice(0,index),
+                action.tracks.map(t => t.track.id).reduce((o, id) => {o[id] = true; return o;}, {})
+                ,...userPlaylists.slice(index, userPlaylists.length)]
+    }
     return userPlaylists;
 }
 

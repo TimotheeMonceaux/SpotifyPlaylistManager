@@ -1,24 +1,22 @@
 table {
-    border-collapse: collapse;
-    background-color: #343434;
-    width: 100%;
-  }
+  border-collapse: collapse;
+  background-color: #343434;
+  width: 80%;
+}
+th {
+  cursor: pointer;
+}
+td, th {
+  border: 1px solid #555555;
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #4A4A4A;
+}
 
-  th {
-    cursor: pointer;
-  }
-  
-  td, th {
-    border: 1px solid #555555;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #4A4A4A;
-  }
-
- img {
-    width: 20px;
-    height: 20px;
-  }
+img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}

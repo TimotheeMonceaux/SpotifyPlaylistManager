@@ -20,7 +20,9 @@ export const ActionType = {
 
     // Playlist tracks
     LOAD_PLAYLIST_TRACKS: 10,
-    APPEND_PLAYLIST_TRACKS: 11
+    APPEND_PLAYLIST_TRACKS: 11,
+    ADD_PLAYLIST_TRACK: 12,
+    DELETE_PLAYLIST_TRACK: 13
 }
 
 // other constants
@@ -59,7 +61,7 @@ export const ActionCreator = {
                                         .then(json => dispatch(ActionCreator.addUserPlaylists(json.items, userToken)))),
     addUserPlaylists: (userPlaylists, userToken) => ((dispatch) => {dispatch({type: ActionType.ADD_USER_PLAYLISTS, userPlaylists: userPlaylists});
                                                          userPlaylists.map(p => dispatch(ActionCreator.loadPlaylistTracks(userToken, p.id)));}),
-    loadLibraryTracks: (userToken, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?limit=50&offset="+offset,
+    loadLibraryTracks: (userToken, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?limit=10&offset="+offset,
                                                 {
                                                     method: 'GET',
                                                     headers: new Headers({"Authorization": "Bearer " + userToken}),
@@ -68,7 +70,7 @@ export const ActionCreator = {
                                                 })
                                         .then(response => response.json(), error => console.log(error))
                                         .then(json => {dispatch(ActionCreator.appendLibraryTracks(json.items))
-                                                        if (json.next !== null && offset <= 150)
+                                                        if (json.next !== null && offset <= 40)
                                                             dispatch(ActionCreator.loadLibraryTracks(userToken, offset + json.limit))})),
     appendLibraryTracks: (tracks) => ({type: ActionType.APPEND_LIBRARY_TRACKS, tracks: tracks}),
     changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),
@@ -83,5 +85,22 @@ export const ActionCreator = {
                                                 .then(json => {dispatch(ActionCreator.appendPlaylistTracks(playlistId, json.items))
                                                                if (json.next !== null)
                                                                     dispatch(ActionCreator.loadPlaylistTracks(userToken, playlistId, offset + json.limit))})),
-    appendPlaylistTracks: (playlistId, tracks) => ({type: ActionType.APPEND_PLAYLIST_TRACKS, playlistId: playlistId, tracks: tracks})
+    appendPlaylistTracks: (playlistId, tracks) => ({type: ActionType.APPEND_PLAYLIST_TRACKS, playlistId: playlistId, tracks: tracks}),
+    addPlaylistTrack: (userToken, playlistId, trackId) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks?uris=spotify:track:"+trackId,
+                                                    {
+                                                        method: 'POST',
+                                                        headers: new Headers({"Authorization": "Bearer " + userToken}),
+                                                        mode: 'cors',
+                                                        cache: 'default' 
+                                                    })
+                                                .then(() => dispatch({type: ActionType.ADD_PLAYLIST_TRACK, playlistId: playlistId, trackId: trackId}), error => console.log(error))),
+    deletePlaylistTrack: (userToken, playlistId, trackId) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks",
+                                                    {
+                                                        method: 'DELETE',
+                                                        headers: new Headers({"Authorization": "Bearer " + userToken, "Content-Type": "application/json"}),
+                                                        mode: 'cors',
+                                                        cache: 'default' ,
+                                                        body: JSON.stringify({tracks: [{uri: "spotify:track:"+trackId}]})
+                                                    })
+                                                .then(() => dispatch({type: ActionType.DELETE_PLAYLIST_TRACK, playlistId: playlistId, trackId: trackId}), error => console.log(error)))
 };

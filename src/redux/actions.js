@@ -68,7 +68,7 @@ export const ActionCreator = {
                                                 })
                                         .then(response => response.json(), error => console.log(error))
                                         .then(json => {dispatch(ActionCreator.appendLibraryTracks(json.items))
-                                                        if (json.next !== null)
+                                                        if (json.next !== null && offset <= 150)
                                                             dispatch(ActionCreator.loadLibraryTracks(userToken, offset + json.limit))})),
     appendLibraryTracks: (tracks) => ({type: ActionType.APPEND_LIBRARY_TRACKS, tracks: tracks}),
     changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),

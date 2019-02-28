@@ -12,17 +12,18 @@ export const ActionType = {
     // User PLaylists
     LOAD_USER_PLAYLISTS: 5,
     ADD_USER_PLAYLISTS: 6,
+    TOGGLE_USER_PLAYLIST: 7,
 
     // Library
-    LOAD_LIBRARY_TRACKS: 7,
-    APPEND_LIBRARY_TRACKS: 8,
-    CHANGE_LIBRARY_SORT: 9,
+    LOAD_LIBRARY_TRACKS: 8,
+    APPEND_LIBRARY_TRACKS: 9,
+    CHANGE_LIBRARY_SORT: 10,
 
     // Playlist tracks
-    LOAD_PLAYLIST_TRACKS: 10,
-    APPEND_PLAYLIST_TRACKS: 11,
-    ADD_PLAYLIST_TRACK: 12,
-    DELETE_PLAYLIST_TRACK: 13
+    LOAD_PLAYLIST_TRACKS: 11,
+    APPEND_PLAYLIST_TRACKS: 12,
+    ADD_PLAYLIST_TRACK: 13,
+    DELETE_PLAYLIST_TRACK: 14
 }
 
 // other constants
@@ -61,6 +62,7 @@ export const ActionCreator = {
                                         .then(json => dispatch(ActionCreator.addUserPlaylists(json.items, userToken)))),
     addUserPlaylists: (userPlaylists, userToken) => ((dispatch) => {dispatch({type: ActionType.ADD_USER_PLAYLISTS, userPlaylists: userPlaylists});
                                                          userPlaylists.map(p => dispatch(ActionCreator.loadPlaylistTracks(userToken, p.id)));}),
+    toggleUserPlaylist: (playlistId) => ({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId}),
     loadLibraryTracks: (userToken, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?limit=10&offset="+offset,
                                                 {
                                                     method: 'GET',

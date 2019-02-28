@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { ActionType } from '../redux/actions';
 
 // Styled
 const List = styled.div `
@@ -20,13 +21,13 @@ const StyledPlaylist = styled.div`
 `;
 
 
-const PPlaylist = ({playlist}) => <StyledPlaylist><input type="checkbox" defaultChecked={playlist.enabled}/> {playlist.name}</StyledPlaylist>;
+const PPlaylist = ({playlist, onPlaylistToggle}) => <StyledPlaylist><label><input type="checkbox" defaultChecked={playlist.enabled} onChange={onPlaylistToggle(playlist.id)}/> {playlist.name}</label></StyledPlaylist>;
 
 // Presentational Component
-const PPlaylists = ({userPlaylists}) => (
+const PPlaylists = ({userPlaylists, onPlaylistToggle}) => (
     <List>
         <ListHeader>My Playlists:</ListHeader>
-        {userPlaylists.map((p) => <PPlaylist playlist={p} key={p.id}/>)}
+        {userPlaylists.map((p) => <PPlaylist playlist={p} key={p.id} onPlaylistToggle={onPlaylistToggle} />)}
     </List>
 );
 PPlaylists.propTypes = {
@@ -39,8 +40,12 @@ const mapStateToProps = state => {
         userPlaylists: state.userPlaylists
     };
 };
+const mapDispatchToPros = (dispatch) => {
+    onPlaylistToggle: (playlistId) => {() => dispatch({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId})}
+}
 const Playlists = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToPros
   )(PPlaylists);
 
 export default Playlists;

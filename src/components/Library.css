@@ -2,6 +2,7 @@ table {
   border-collapse: collapse;
   background-color: #343434;
   width: 80%;
+  color: white;
 }
 th {
   cursor: pointer;
@@ -11,7 +12,7 @@ td, th {
   text-align: left;
   padding: 8px;
 }
-tr:nth-child(even) {
+tbody tr:nth-child(odd) {
   background-color: #4A4A4A;
 }
 

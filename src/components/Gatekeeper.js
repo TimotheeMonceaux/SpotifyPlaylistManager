@@ -7,8 +7,6 @@ import SpotifyLogin from 'react-spotify-login';
 import styled from 'styled-components';
 import Loading from './Loading';
 import Controller from './Controller';
-import './Gatekeeper.css';
-
 
 const SSpotifyLogin = styled(SpotifyLogin)`
     color: white;

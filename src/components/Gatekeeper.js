@@ -4,10 +4,21 @@ import { connect } from 'react-redux';
 import { ActionCreator } from '../redux/actions';
 import { VLayout, HLayout } from './Layout';
 import SpotifyLogin from 'react-spotify-login';
+import styled from 'styled-components';
 import Loading from './Loading';
 import Controller from './Controller';
-import './Gatekeeper.css';
 
+const SSpotifyLogin = styled(SpotifyLogin)`
+    color: white;
+    background-color: forestgreen;
+    padding: 25px;
+    font-weight: bold;
+    border-radius: 20px;
+    font-family: Arial;
+    font-size: 150%;
+    border: none;
+    cursor: pointer;
+`;
 
 // Presentational Component
 class PGatekeeper extends React.Component {
@@ -23,7 +34,7 @@ class PGatekeeper extends React.Component {
         // Step 2 - Retrieve the user token
         if (this.props.userToken === "") {
             return <VLayout><HLayout>
-                    <SpotifyLogin   clientId={this.props.clientId}
+                    <SSpotifyLogin   clientId={this.props.clientId}
                                     redirectUri="http://localhost:3000/callback/"
                                     scope="user-read-private user-read-email user-library-read playlist-modify-public playlist-modify-private"
                                     onSuccess={json => this.props.onUserTokenRetrieved(json)}

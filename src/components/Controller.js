@@ -5,7 +5,7 @@ import { ActionCreator } from '../redux/actions';
 import { VLayout, HLayout } from './Layout';
 import UserProfileCard from './UserProfileCard';
 import Playlists from './Playlists';
-import Library from './Library';
+import GriddleLibrary from './GriddleLibrary';
 import Loading from './Loading';
 import { isNullOrEmpty } from '../utils/object';
 
@@ -45,7 +45,7 @@ class PController extends React.Component {
                     <UserProfileCard />
                     <Playlists />
                     </VLayout>
-                    <VLayout><Library /></VLayout>
+                    <VLayout><GriddleLibrary /></VLayout>
                 </HLayout>;
         
     }

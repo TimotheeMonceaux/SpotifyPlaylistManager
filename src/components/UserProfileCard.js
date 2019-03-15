@@ -8,25 +8,27 @@ import { isNullOrEmpty } from '../utils/object';
 const Card = styled.div`
     border: solid 3px lightgray;
     border-radius: 10px;
-    padding: 0px;
+    padding: 5px;
     background-color: #4B4B4B;
+    height: 100%;
 `;
 const Avatar = styled.div`
     background: url(${props => props.url}) 50% 50% no-repeat;
     background-size: 175%;
-    width: 10vh;
-    height: 10vh;
+    width: 50px;
+    height: 50px;
+    margin: 5px;
 `;
 const DisplayName = styled.div`
     color: white;
     font-weight: bold;
     font-size: 100%;
-    margin: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
 `;
 const Email = styled.div`
     color: white;
     font-size: 80%;
-    margin: 10px;
     text-decoration: underline;
 `;
 

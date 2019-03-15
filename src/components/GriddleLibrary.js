@@ -5,6 +5,8 @@ import Griddle, { plugins, RowDefinition, ColumnDefinition } from 'griddle-react
 import { ActionCreator } from '../redux/actions';
 import './Library.css';
 
+// next step : https://griddlegriddle.github.io/Griddle/examples/getDataFromRowIntoCell/
+
 // Presentational Component
 const PGriddleLibrary = ({userToken, library, userPlaylists,  onNotInPlaylistClicked, onInPlaylistClicked}) => (
     <Griddle 
@@ -12,14 +14,19 @@ const PGriddleLibrary = ({userToken, library, userPlaylists,  onNotInPlaylistCli
             Play: track.track.uri,
             Title: track.track.name, 
             Artist: track.track.artists[0].name, 
-            Album: track.track.album.name
+            Album: track.track.album.name,
+            Id: track.track.Id
         }})}
         plugins={[plugins.LocalPlugin]}>
             <RowDefinition>
-                <ColumnDefinition id="Play" customComponent={({value}) => <a href={value}><img src="/img/play-button.svg" alt="Play Button" /></a>} />
-                <ColumnDefinition id="Title"/>
-                <ColumnDefinition id="Artist"/>
-                <ColumnDefinition id="Album"/>
+                {[
+                <ColumnDefinition id="Play" customComponent={({value}) => <a href={value}><img src="/img/play-button.svg" alt="Play Button" /></a>} />,
+                <ColumnDefinition id="Title"/>,
+                <ColumnDefinition id="Artist"/>,
+                <ColumnDefinition id="Album"/>,
+                userPlaylists.map(p => <ColumnDefinition key={p.id} 
+                                                         id={p.name} />)
+                ].flat() /* Ugly fix for Griddle does not flatten children by default*/}
             </RowDefinition>
         </Griddle>
 );

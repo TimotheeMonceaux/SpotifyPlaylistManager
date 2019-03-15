@@ -37,6 +37,7 @@ export const LibrarySort = {
 }
 
 export const ActionCreator = {
+    forceState: (newState) => ({type: ActionType.FORCE_STATE, newState: newState}),
     addUserToken: (userToken) => ({type: ActionType.ADD_USER_TOKEN, userToken: userToken}),
     loadClientId: () => ((dispatch) => fetch("/config/spotify.json")
                                         .then(response => response.json(), error => console.log(error))

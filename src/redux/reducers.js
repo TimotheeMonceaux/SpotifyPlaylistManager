@@ -1,12 +1,24 @@
 import { combineReducers } from 'redux';
 import { ActionType, LibrarySort } from './actions';
 
+const environment = (environment = "", action) => {
+    if (environment === "TEST")
+        console.log(action);
+
+    if (action.type === ActionType.FORCE_STATE)
+        return action.newState.environment;
+
+    if (action.type === ActionType.SET_ENVIRONMENT)
+        return action.environment;
+
+    return environment;
+}
 
 const clientId = (clientId = "", action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.clientId;
 
-    if (action.type === ActionType.ADD_CLIENT_ID)
+    if (action.type === ActionType.SET_CLIENT_ID)
         return action.clientId;
 
     return clientId;
@@ -16,7 +28,7 @@ const userToken = (userToken = "", action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.userToken;
 
-    if (action.type === ActionType.ADD_USER_TOKEN)
+    if (action.type === ActionType.SET_USER_TOKEN)
         return action.userToken;
 
     return userToken;
@@ -98,6 +110,7 @@ const librarySort = (librarySort = {sort: LibrarySort.DEFAULT, asc: 1}, action) 
 }
 
 const reducer = combineReducers ({
+    environment,
     clientId, 
     userToken,
     userProfile,

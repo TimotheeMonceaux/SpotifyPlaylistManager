@@ -23,7 +23,7 @@ const SSpotifyLogin = styled(SpotifyLogin)`
 // Presentational Component
 class PGatekeeper extends React.Component {
     componentWillMount() {
-        this.props.loadClientId();
+        this.props.loadInitialConfig();
     }
 
     render() {
@@ -65,7 +65,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        loadClientId: () => {dispatch(ActionCreator.loadClientId())},
+        loadInitialConfig: () => {dispatch(ActionCreator.loadInitialConfig())},
         onUserTokenRetrieved: (json) => {dispatch(ActionCreator.addUserToken(json.access_token))},
         loadUserProfile: (token) => {dispatch(ActionCreator.loadUserProfile(token))},
         loadUserPlaylists: (token) => {dispatch(ActionCreator.loadUserPlaylists(token))},

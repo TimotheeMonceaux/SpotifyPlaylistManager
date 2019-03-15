@@ -13,9 +13,11 @@ import { isNullOrEmpty } from '../utils/object';
 // Presentational Component
 class PController extends React.Component {
     componentWillMount() {
-        this.props.loadUserProfile(this.props.userToken);
-        this.props.loadUserPlaylists(this.props.userToken);
-        this.props.loadLibraryTracks(this.props.userToken);
+        if (this.props.environment !== "TEST") {
+            this.props.loadUserProfile(this.props.userToken);
+            this.props.loadUserPlaylists(this.props.userToken);
+            this.props.loadLibraryTracks(this.props.userToken);
+        }
     }
 
     render() {
@@ -40,17 +42,18 @@ class PController extends React.Component {
                     <VLayout><Loading /></VLayout>
                 </HLayout>;
         }
-        return <HLayout>
-                <VLayout>
+        return <VLayout>
+                <HLayout>
                     <UserProfileCard />
                     <Playlists />
-                    </VLayout>
-                    <VLayout><GriddleLibrary /></VLayout>
-                </HLayout>;
+                </HLayout>
+                <HLayout><GriddleLibrary /></HLayout>
+                </VLayout>;
         
     }
 }
 PController.propTypes = {
+    environment: PropTypes.string.isRequired,
     userToken: PropTypes.string.isRequired,
     userProfile: PropTypes.object.isRequired,
     userPlaylists: PropTypes.array.isRequired,
@@ -60,6 +63,7 @@ PController.propTypes = {
 // Container Component
 const mapStateToProps = state => {
     return {
+        environment: state.environment,
         userToken: state.userToken,
         userProfile: state.userProfile,
         userPlaylists: state.userPlaylists,

@@ -1,30 +1,33 @@
 export const ActionType = {
     FORCE_STATE: 0,
-    ADD_USER_TOKEN: 1,
+    SET_ENVIRONMENT: 1,
 
     // Spotify Client Id
     LOAD_CLIENT_ID: 2,
-    ADD_CLIENT_ID: 3,
+    SET_CLIENT_ID: 3,
+
+    // Spotify Token
+    SET_USER_TOKEN: 4,
 
     // User Profile
-    LOAD_USER_PROFILE: 4,
-    ADD_USER_PROFILE: 5,
+    LOAD_USER_PROFILE: 5,
+    ADD_USER_PROFILE: 6,
 
     // User PLaylists
-    LOAD_USER_PLAYLISTS: 6,
-    ADD_USER_PLAYLISTS: 7,
-    TOGGLE_USER_PLAYLIST: 8,
+    LOAD_USER_PLAYLISTS: 7,
+    ADD_USER_PLAYLISTS: 8,
+    TOGGLE_USER_PLAYLIST: 9,
 
     // Library
-    LOAD_LIBRARY_TRACKS: 9,
-    APPEND_LIBRARY_TRACKS: 10,
-    CHANGE_LIBRARY_SORT: 11,
+    LOAD_LIBRARY_TRACKS: 10,
+    APPEND_LIBRARY_TRACKS: 11,
+    CHANGE_LIBRARY_SORT: 12,
 
     // Playlist tracks
-    LOAD_PLAYLIST_TRACKS: 12,
-    APPEND_PLAYLIST_TRACKS: 13,
-    ADD_PLAYLIST_TRACK: 14,
-    DELETE_PLAYLIST_TRACK: 15
+    LOAD_PLAYLIST_TRACKS: 13,
+    APPEND_PLAYLIST_TRACKS: 14,
+    ADD_PLAYLIST_TRACK: 15,
+    DELETE_PLAYLIST_TRACK: 16
 }
 
 // other constants
@@ -38,11 +41,16 @@ export const LibrarySort = {
 
 export const ActionCreator = {
     forceState: (newState) => ({type: ActionType.FORCE_STATE, newState: newState}),
-    addUserToken: (userToken) => ({type: ActionType.ADD_USER_TOKEN, userToken: userToken}),
-    loadClientId: () => ((dispatch) => fetch("/config/spotify.json")
+    setEnvironment: (environment) => ({type: ActionType.SET_ENVIRONMENT, environment: environment}),
+    setClientId: (clientId) => ({type: ActionType.SET_CLIENT_ID, clientId: clientId}),
+    loadInitialConfig: () => ((dispatch) => fetch("/config/spotify.json")
                                         .then(response => response.json(), error => console.log(error))
-                                        .then(json => dispatch(ActionCreator.addClientId(json.clientId)))),
-    addClientId: (clientId) => ({type: ActionType.ADD_CLIENT_ID, clientId: clientId}),
+                                        .then(json => {dispatch(ActionCreator.setEnvironment(json.environment));
+                                                       if (json.environment === "TEST")
+                                                           dispatch(ActionCreator.forceState(json.testState));
+                                                       else
+                                                           dispatch(ActionCreator.setClientId(json.clientId));})),
+    addUserToken: (userToken) => ({type: ActionType.SET_USER_TOKEN, userToken: userToken}),
     loadUserProfile: (userToken) => ((dispatch) => fetch("https://api.spotify.com/v1/me",
                                                 {
                                                     method: 'GET',

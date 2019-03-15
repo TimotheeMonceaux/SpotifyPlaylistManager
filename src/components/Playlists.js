@@ -9,12 +9,12 @@ const List = styled.div `
     padding: 25px;
     color: white;
 `;
-const ListHeader = styled.div`
+const ListHeader = styled.span`
     font-size: 150%;
     font-weight: bold;
     margin-bottom: 20px;
 `;
-const StyledPlaylist = styled.div`
+const StyledPlaylist = styled.span`
     margin-top: 10px;
     margin-left: 10px;
     font-size: 125%;
@@ -40,12 +40,14 @@ const mapStateToProps = state => {
         userPlaylists: state.userPlaylists
     };
 };
-const mapDispatchToPros = (dispatch) => {
-    onPlaylistToggle: (playlistId) => {() => dispatch({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId})}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onPlaylistToggle: (playlistId) => {return () => dispatch({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId})}
+    }
 }
 const Playlists = connect(
     mapStateToProps,
-    mapDispatchToPros
+    mapDispatchToProps
   )(PPlaylists);
 
 export default Playlists;

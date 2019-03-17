@@ -17,16 +17,16 @@ const PGriddleLibrary = ({userToken, library, userPlaylists,  onNotInPlaylistCli
             Album: track.track.album.name,
             Id: track.track.Id
         }})}
-        plugins={[plugins.LocalPlugin]}>
+        plugins={[plugins.LocalPlugin, plugins.PositionPlugin({tableHeight: "80vh", fixedHeader: true})]}>
             <RowDefinition>
                 {[
-                <ColumnDefinition id="Play" customComponent={({value}) => <a href={value}><img src="/img/play-button.svg" alt="Play Button" /></a>} />,
-                <ColumnDefinition id="Title"/>,
+                <ColumnDefinition id="Play" title=" " customComponent={({value}) => <a href={value}><img src="/img/play-button.svg" alt="Play Button" /></a>} />,
+                <ColumnDefinition id="Title" />,
                 <ColumnDefinition id="Artist"/>,
                 <ColumnDefinition id="Album"/>,
                 userPlaylists.map(p => <ColumnDefinition key={p.id} 
                                                          id={p.name} />)
-                ].flat() /* Ugly fix for Griddle does not flatten children by default*/}
+                ].flat() /* Ugly fix for Griddle does not flatten children by default */}
             </RowDefinition>
         </Griddle>
 );

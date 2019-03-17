@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../redux/actions';
-import { VLayout, HLayout } from './Layout';
-import UserProfileCard from './UserProfileCard';
-import Playlists from './Playlists';
-import GriddleLibrary from './GriddleLibrary';
-import Loading from './Loading';
-import { isNullOrEmpty } from '../utils/object';
+import { Container, Row, Col } from 'react-bootstrap';
+import Library from './Library';
+import HeaderBar from './HeaderBar';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 // Presentational Component
@@ -21,35 +19,16 @@ class PController extends React.Component {
     }
 
     render() {
-        // Step 3 - Retrieve the user profile
-        if (isNullOrEmpty(this.props.userProfile)) {
-            return <VLayout><HLayout><Loading /></HLayout></VLayout>;
-        }
-        // Step 4 - Retrieve the user's playlists
-        if (isNullOrEmpty(this.props.userPlaylists)) {
-            return  <VLayout>
-                        <HLayout><UserProfileCard /></HLayout>
-                        <HLayout><Loading /></HLayout>
-                    </VLayout>;
-        }
-        // Step 5 - Retrieve the user's library
-        if (isNullOrEmpty(this.props.library)) {
-            return <HLayout>
-                <VLayout>
-                    <UserProfileCard />
-                    <Playlists />
-                    </VLayout>
-                    <VLayout><Loading /></VLayout>
-                </HLayout>;
-        }
-        return <VLayout>
-                <HLayout>
-                    <UserProfileCard />
-                    <Playlists />
-                </HLayout>
-                <HLayout><GriddleLibrary /></HLayout>
-                </VLayout>;
-        
+        return <div><HeaderBar />
+                 <Container fluid>
+                    <Row></Row>
+                    <Row>
+                        <Col>
+                            <Library />
+                        </Col>
+                    </Row>
+                </Container>
+            </div>;
     }
 }
 PController.propTypes = {

@@ -1,3 +1,5 @@
 {
+    "environment": "TEST",
+    "testState": {},
     "clientId":""
 }

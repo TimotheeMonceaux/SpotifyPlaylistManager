@@ -73,7 +73,7 @@ export const ActionCreator = {
     addUserPlaylists: (userPlaylists, userToken) => ((dispatch) => {dispatch({type: ActionType.ADD_USER_PLAYLISTS, userPlaylists: userPlaylists});
                                                          userPlaylists.map(p => dispatch(ActionCreator.loadPlaylistTracks(userToken, p.id)));}),
     toggleUserPlaylist: (playlistId) => ({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId}),
-    loadLibraryTracks: (userToken, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?limit=10&offset="+offset,
+    loadLibraryTracks: (userToken, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?limit=50&offset="+offset,
                                                 {
                                                     method: 'GET',
                                                     headers: new Headers({"Authorization": "Bearer " + userToken}),
@@ -82,7 +82,7 @@ export const ActionCreator = {
                                                 })
                                         .then(response => response.json(), error => console.log(error))
                                         .then(json => {dispatch(ActionCreator.appendLibraryTracks(json.items))
-                                                        if (json.next !== null && offset <= 40)
+                                                        if (json.next !== null)
                                                             dispatch(ActionCreator.loadLibraryTracks(userToken, offset + json.limit))})),
     appendLibraryTracks: (tracks) => ({type: ActionType.APPEND_LIBRARY_TRACKS, tracks: tracks}),
     changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),

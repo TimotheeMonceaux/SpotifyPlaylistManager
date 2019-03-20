@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { ActionType } from '../../redux/actions';
+import { ActionCreator } from '../../redux/actions';
 import { NavDropdown } from 'react-bootstrap';
 
 // Item
-const PPlaylist = ({playlist, onPlaylistToggle}) => <NavDropdown.Item><label><input type="checkbox" defaultChecked={playlist.enabled} onChange={onPlaylistToggle(playlist.id)}/> {playlist.name}</label></NavDropdown.Item>;
+const PPlaylist = ({playlist, onPlaylistToggle}) => <NavDropdown.Item as="label"><input type="checkbox" defaultChecked={playlist.enabled} onChange={onPlaylistToggle(playlist.id)}/> {playlist.name}</NavDropdown.Item>;
 
 // Presentational Component
 const PPlaylists = ({userPlaylists, onPlaylistToggle}) => (
@@ -25,7 +25,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        onPlaylistToggle: (playlistId) => {return () => dispatch({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId})}
+        onPlaylistToggle: (playlistId) => {return () => dispatch(ActionCreator.toggleUserPlaylist(playlistId))}
     }
 }
 const Playlists = connect(

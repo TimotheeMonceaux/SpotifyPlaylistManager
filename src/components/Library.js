@@ -61,7 +61,7 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists,  onTitleClick
                 </tr>
             </thead>
             <tbody>
-            {librarySort.sort === LibrarySort.DEFAULT ? library.map((track) => <Track userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />) : library.sort(getLibrarySortingFunction(librarySort)).map((track) => <Track userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />)}
+            {librarySort.sort === LibrarySort.DEFAULT ? library.map((track) => <Track key={track.track.id} userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />) : library.sort(getLibrarySortingFunction(librarySort)).map((track) => <Track key={track.track.id} userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />)}
             </tbody>
         </table>
     </StyledLibrary>

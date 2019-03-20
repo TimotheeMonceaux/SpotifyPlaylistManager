@@ -21,7 +21,6 @@ class PController extends React.Component {
     render() {
         return <div><HeaderBar />
                  <Container>
-                    <Row></Row>
                     <Row>
                         <Col>
                             <Library />

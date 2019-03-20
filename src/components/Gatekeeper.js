@@ -35,7 +35,7 @@ class PGatekeeper extends React.Component {
         if (this.props.userToken === "") {
             return <VLayout><HLayout>
                     <SSpotifyLogin   clientId={this.props.clientId}
-                                    redirectUri="http://localhost:3000/callback/"
+                                    redirectUri="https://spotify-playlists-manager.herokuapp.com/callback/"
                                     scope="user-read-private user-read-email user-library-read playlist-modify-public playlist-modify-private"
                                     onSuccess={json => this.props.onUserTokenRetrieved(json)}
                                     onFailure={json => console.error(json)}/>

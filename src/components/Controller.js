@@ -20,7 +20,7 @@ class PController extends React.Component {
 
     render() {
         return <div><HeaderBar />
-                 <Container fluid>
+                 <Container>
                     <Row></Row>
                     <Row>
                         <Col>

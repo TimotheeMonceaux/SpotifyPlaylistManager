@@ -5,6 +5,9 @@ table {
 }
 th {
   cursor: pointer;
+  position: sticky;
+  top: 0;
+  background-color: #343434;
 }
 td, th {
   border: 1px solid #555555;

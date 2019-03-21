@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { ActionType, LibrarySort } from './actions';
+import mapTrack from '../model/track';
 
 const environment = (environment = "", action) => {
     if (environment === "TEST")
@@ -91,7 +92,7 @@ const library = (library = [], action) => {
         return action.newState.library;
 
     if (action.type === ActionType.APPEND_LIBRARY_TRACKS)
-        return library.concat(action.tracks);
+        return library.concat(action.tracks.items.map(item => mapTrack(item)));
 
     return library;
 }

@@ -1,0 +1,59 @@
+{
+    "items": [
+      {
+        "track": {
+          "id": "2xYlyywNgefLCRDG8hlxZq"
+        }
+      },
+      {
+        "track": {
+          "id": "0fiPpwBPIaxxydn4KzX9Tc"
+        }
+      },
+      {
+        "track": {
+          "id": "1wClzvdrKmedrANj2tHKj7"
+        }
+      },
+      {
+        "track": {
+          "id": "53VhmC2brILxuf78WQHdVE"
+        }
+      },
+      {
+        "track": {
+          "id": "41fiRrzEqGo4pTVqXYrfnz"
+        }
+      },
+      {
+        "track": {
+          "id": "4MIXgItmCtVLCnT4BvU5tU"
+        }
+      },
+      {
+        "track": {
+          "id": "5olTVeWVSGogyQrzc7anUv"
+        }
+      },
+      {
+        "track": {
+          "id": "5p6me2mwQrGfH30eExHn6v"
+        }
+      },
+      {
+        "track": {
+          "id": "7A96l8P8UmFPhdu7pQ8SMe"
+        }
+      },
+      {
+        "track": {
+          "id": "3MC79TErHHp9FODo2ErBQ1"
+        }
+      }
+    ],
+    "limit": 10,
+    "next": "https://api.spotify.com/v1/playlists/3bZNlTUFlAJeBvMyyqSNzP/tracks?offset=10&limit=10&fields=items(track(id)),limit,next,offset,previous,total",
+    "offset": 0,
+    "previous": null,
+    "total": 147
+  }

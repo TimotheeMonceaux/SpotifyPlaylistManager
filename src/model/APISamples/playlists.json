@@ -1,0 +1,195 @@
+{
+    "href": "https://api.spotify.com/v1/users/seigneur_mojo/playlists?offset=0&limit=5",
+    "items": [
+      {
+        "collaborative": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/5VRNggP569hvUP3eb4gpgq"
+        },
+        "href": "https://api.spotify.com/v1/playlists/5VRNggP569hvUP3eb4gpgq",
+        "id": "5VRNggP569hvUP3eb4gpgq",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/f694ea51cf029442e887165088e8942b522db438",
+            "width": 640
+          }
+        ],
+        "name": "Liked from Radio",
+        "owner": {
+          "display_name": "seigneur_mojo",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/seigneur_mojo"
+          },
+          "href": "https://api.spotify.com/v1/users/seigneur_mojo",
+          "id": "seigneur_mojo",
+          "type": "user",
+          "uri": "spotify:user:seigneur_mojo"
+        },
+        "primary_color": null,
+        "public": false,
+        "snapshot_id": "NSw4NjA3YWU1YzBjOWViMzVhZWEwZGMwNDViYjFhYTdlNDkzZGNiYjYz",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/5VRNggP569hvUP3eb4gpgq/tracks",
+          "total": 2
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:5VRNggP569hvUP3eb4gpgq"
+      },
+      {
+        "collaborative": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1Ejkso85ls4xvk"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1Ejkso85ls4xvk",
+        "id": "37i9dQZF1Ejkso85ls4xvk",
+        "images": [
+          {
+            "height": null,
+            "url": "https://lineup-images.scdn.co/your-top-songs-2018_DEFAULT-en.jpg",
+            "width": null
+          }
+        ],
+        "name": "Your Top Songs 2018",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": false,
+        "snapshot_id": "MjU3NjA5MzcsMDAwMDAwMDAyNzVkMzNiMmI3MTkxNmY3NjJlODRlYTJkMzUzMzNkZg==",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1Ejkso85ls4xvk/tracks",
+          "total": 100
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1Ejkso85ls4xvk"
+      },
+      {
+        "collaborative": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1Ej2QTNFFGGb5R"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1Ej2QTNFFGGb5R",
+        "id": "37i9dQZF1Ej2QTNFFGGb5R",
+        "images": [
+          {
+            "height": null,
+            "url": "https://lineup-images.scdn.co/tastebreakers_DEFAULT-en.jpg",
+            "width": null
+          }
+        ],
+        "name": "Tastebreakers",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": false,
+        "snapshot_id": "MjU3MzMxMDYsMDAwMDAwMDA2NTMwMzYzM2Y3YzBmYjQ3Zjc1MDhmMThjOWVjNTRiMA==",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1Ej2QTNFFGGb5R/tracks",
+          "total": 50
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1Ej2QTNFFGGb5R"
+      },
+      {
+        "collaborative": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZEVXbtRm7qs2FMmJ"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZEVXbtRm7qs2FMmJ",
+        "id": "37i9dQZEVXbtRm7qs2FMmJ",
+        "images": [
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/0e2df44fc11eac228d51b88e394771b713d363a0",
+            "width": 300
+          }
+        ],
+        "name": "Release Radar",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": false,
+        "snapshot_id": "MjU4NzY3NDAsMDAwMDAwMDAwYTdjOWY4YjI2MTE4OTAwODg2NWQ4NThjNmM3NTlhNg==",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZEVXbtRm7qs2FMmJ/tracks",
+          "total": 30
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZEVXbtRm7qs2FMmJ"
+      },
+      {
+        "collaborative": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/3bZNlTUFlAJeBvMyyqSNzP"
+        },
+        "href": "https://api.spotify.com/v1/playlists/3bZNlTUFlAJeBvMyyqSNzP",
+        "id": "3bZNlTUFlAJeBvMyyqSNzP",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://mosaic.scdn.co/640/09053135f1c8eeb7427972b747596a8272533aaa27f7f08385c3bbd23e947162e978d1e28208ecf02e309583fafabe707611bd48632a80de96ddb614f60056744fd9278aecaff5d348165e647bb7f7e7",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://mosaic.scdn.co/300/09053135f1c8eeb7427972b747596a8272533aaa27f7f08385c3bbd23e947162e978d1e28208ecf02e309583fafabe707611bd48632a80de96ddb614f60056744fd9278aecaff5d348165e647bb7f7e7",
+            "width": 300
+          },
+          {
+            "height": 60,
+            "url": "https://mosaic.scdn.co/60/09053135f1c8eeb7427972b747596a8272533aaa27f7f08385c3bbd23e947162e978d1e28208ecf02e309583fafabe707611bd48632a80de96ddb614f60056744fd9278aecaff5d348165e647bb7f7e7",
+            "width": 60
+          }
+        ],
+        "name": "Chill",
+        "owner": {
+          "display_name": "seigneur_mojo",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/seigneur_mojo"
+          },
+          "href": "https://api.spotify.com/v1/users/seigneur_mojo",
+          "id": "seigneur_mojo",
+          "type": "user",
+          "uri": "spotify:user:seigneur_mojo"
+        },
+        "primary_color": null,
+        "public": true,
+        "snapshot_id": "NDMzLGE3MWY1YWY2MWZjNjM1NTIxNzQ3Yjk3OGFmNDNmOTcyODBmOGE1Y2M=",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/3bZNlTUFlAJeBvMyyqSNzP/tracks",
+          "total": 147
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:3bZNlTUFlAJeBvMyyqSNzP"
+      }
+    ],
+    "limit": 5,
+    "next": "https://api.spotify.com/v1/users/seigneur_mojo/playlists?offset=5&limit=5",
+    "offset": 0,
+    "previous": null,
+    "total": 12
+  }

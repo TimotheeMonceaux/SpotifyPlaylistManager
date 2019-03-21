@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ActionCreator, LibrarySort } from '../redux/actions';
-import './Library.css';
-import { getLibrarySortingFunction, getTitleArrowsUrl, getArtistArrowsUrl, getAlbumArrowsUrl } from './library/libraryUtils';
+import './library/Library.css';
+import { getLibrarySortingFunction, getTitleArrowsUrl, getArtistArrowsUrl, getAlbumArrowsUrl, trackToComponent } from './library/libraryUtils';
 import Track from './library/track';
 
 // Styled
@@ -25,7 +25,10 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists,  onTitleClick
                 </tr>
             </thead>
             <tbody>
-            {librarySort.sort === LibrarySort.DEFAULT ? library.map((track) => <Track key={track.track.id} userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />) : library.sort(getLibrarySortingFunction(librarySort)).map((track) => <Track key={track.track.id} userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />)}
+            {librarySort.sort === LibrarySort.DEFAULT ? 
+                library.map((track) => <Track key={track.id} userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />) : 
+                library.sort(getLibrarySortingFunction(librarySort))
+                       .map((track) => <Track key={track.id} userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />)}
             </tbody>
         </table>
     </StyledLibrary>

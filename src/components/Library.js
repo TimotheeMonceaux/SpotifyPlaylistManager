@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ActionCreator, LibrarySort } from '../redux/actions';
 import './library/Library.css';
-import { getLibrarySortingFunction, getTitleArrowsUrl, getArtistArrowsUrl, getAlbumArrowsUrl, trackToComponent } from './library/libraryUtils';
+import { getLibrarySortingFunction, getTitleArrowsUrl, getArtistArrowsUrl, getAlbumArrowsUrl } from './library/libraryUtils';
 import Track from './library/track';
 
 // Styled

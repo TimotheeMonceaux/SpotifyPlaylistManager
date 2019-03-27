@@ -3,7 +3,7 @@ import { ActionType, LibrarySort } from './actions';
 import mapTrack from '../model/track';
 
 const environment = (environment = "", action) => {
-    if (environment === "TEST")
+    if (environment !== "PROD")
         console.log(action);
 
     if (action.type === ActionType.FORCE_STATE)
@@ -92,7 +92,7 @@ const library = (library = [], action) => {
         return action.newState.library;
 
     if (action.type === ActionType.APPEND_LIBRARY_TRACKS)
-        return library.concat(action.tracks.items.map(item => mapTrack(item)));
+        return library.concat(action.tracks.map(item => mapTrack(item)));
 
     return library;
 }

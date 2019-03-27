@@ -117,7 +117,7 @@ const libraryFilterPlaylists = (playlists = [], action) => {
     if (action.type === ActionType.TOGGLE_LIBRARY_PLAYLIST_FILTER) {
         if (playlists.includes(action.playlistId)) {
             let index = playlists.indexOf(action.playlistId);
-            return [...Array.slice(0, index), ...Array.slice(index)];
+            return [...playlists.slice(0, index), ...playlists.slice(index+1)];
         }
         else {
             return [...playlists, action.playlistId];
@@ -134,9 +134,10 @@ const libraryFilterText = (text = "", action) => {
     
     return text;
 }
+
 const libraryFilter = combineReducers({
-    libraryFilterPlaylists,
-    libraryFilterText
+    playlists: libraryFilterPlaylists,
+    text: libraryFilterText
 })
 
 const reducer = combineReducers ({

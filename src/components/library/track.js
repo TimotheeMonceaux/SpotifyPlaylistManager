@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { trackInPlaylist } from './libraryUtils';
 
 const NotInPlaylist = ({onImgClicked}) => <td><img src="/img/plus.svg" onClick={onImgClicked} alt="Not In Playlist"/></td>;
 const InPlaylist = ({onImgClicked}) => <td><img src="/img/tick.svg" onClick={onImgClicked} alt="In Playlist"/></td>;
@@ -10,7 +11,7 @@ const Track = ({userToken, track, userPlaylists, onNotInPlaylistClicked, onInPla
         <td>{track.artist}</td>
         <td>{track.album}</td>   
         {userPlaylists.filter(p => p.enabled)
-                     .map(p => p.tracks[track.id] === true ? 
+                     .map(p => trackInPlaylist(track, p) ? 
                         <InPlaylist key={p.id+track.id} onImgClicked={onInPlaylistClicked(userToken, p.id, track.id)} /> :
                         <NotInPlaylist key={p.id+track.id} onImgClicked={onNotInPlaylistClicked(userToken, p.id, track.id)} />)}
 </tr>;

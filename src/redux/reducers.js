@@ -110,6 +110,35 @@ const librarySort = (librarySort = {sort: LibrarySort.DEFAULT, asc: 1}, action) 
     return librarySort;
 }
 
+const libraryFilterPlaylists = (playlists = [], action) => {
+    if (action.type === ActionType.FORCE_STATE)
+        return action.newState.libraryFilter.playlists;
+
+    if (action.type === ActionType.TOGGLE_LIBRARY_PLAYLIST_FILTER) {
+        if (playlists.includes(action.playlistId)) {
+            let index = playlists.indexOf(action.playlistId);
+            return [...Array.slice(0, index), ...Array.slice(index)];
+        }
+        else {
+            return [...playlists, action.playlistId];
+        }
+    }
+
+    return playlists;
+}
+
+
+const libraryFilterText = (text = "", action) => {
+    if (action.type === ActionType.FORCE_STATE)
+        return action.newState.libraryFilter.text;
+    
+    return text;
+}
+const libraryFilter = combineReducers({
+    libraryFilterPlaylists,
+    libraryFilterText
+})
+
 const reducer = combineReducers ({
     environment,
     clientId, 
@@ -117,7 +146,8 @@ const reducer = combineReducers ({
     userProfile,
     userPlaylists,
     library,
-    librarySort
+    librarySort,
+    libraryFilter
 });
 
 export default reducer;

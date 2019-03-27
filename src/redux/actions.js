@@ -22,12 +22,14 @@ export const ActionType = {
     LOAD_LIBRARY_TRACKS: 10,
     APPEND_LIBRARY_TRACKS: 11,
     CHANGE_LIBRARY_SORT: 12,
+    TOGGLE_LIBRARY_PLAYLIST_FILTER: 13,
+    CHANGE_LIBRARY_FILTER: 14,
 
     // Playlist tracks
-    LOAD_PLAYLIST_TRACKS: 13,
-    APPEND_PLAYLIST_TRACKS: 14,
-    ADD_PLAYLIST_TRACK: 15,
-    DELETE_PLAYLIST_TRACK: 16
+    LOAD_PLAYLIST_TRACKS: 15,
+    APPEND_PLAYLIST_TRACKS: 16,
+    ADD_PLAYLIST_TRACK: 17,
+    DELETE_PLAYLIST_TRACK: 18
 }
 
 // other constants
@@ -86,6 +88,8 @@ export const ActionCreator = {
                                                             dispatch(ActionCreator.loadLibraryTracks(userToken, offset + json.limit))})),
     appendLibraryTracks: (tracks) => ({type: ActionType.APPEND_LIBRARY_TRACKS, tracks: tracks}),
     changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),
+    toggleLibraryPlaylistFilter: (playlistId) => ({type: ActionType.TOGGLE_LIBRARY_PLAYLIST_FILTER, playlistId: playlistId}),
+    changeLibraryFilter: (text) => ({type: ActionType.CHANGE_LIBRARY_FILTER, text: text}),
     loadPlaylistTracks: (userToken, playlistId, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks?fields=items(track(id))%2Climit%2Cnext%2Coffset%2Cprevious%2Ctotal&limit=100&offset="+offset,
                                                     {
                                                         method: 'GET',

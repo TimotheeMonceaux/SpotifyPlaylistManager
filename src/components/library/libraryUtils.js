@@ -1,3 +1,5 @@
+import { LibrarySort } from '../../redux/actions.js';
+
 export const getLibrarySortingFunction = (librarySort) => {
     if (librarySort.sort === LibrarySort.ARTIST)
         return (t1, t2) => (t1.track.artists[0].name > t2.track.artists[0].name) ? librarySort.asc : -1 * librarySort.asc;

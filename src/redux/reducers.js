@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { ActionType, LibrarySort } from './actions';
 import mapTrack from '../model/track';
+import { cleanString } from '../utils/string.js';
 
 const environment = (environment = "", action) => {
     if (environment !== "PROD")
@@ -133,7 +134,7 @@ const libraryFilterText = (text = "", action) => {
         return action.newState.libraryFilter.text;
 
     if (action.type === ActionType.CHANGE_LIBRARY_FILTER)
-        return action.text;
+        return cleanString(action.text);
     
     return text;
 }

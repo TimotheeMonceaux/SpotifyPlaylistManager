@@ -1,4 +1,5 @@
 import { isNullOrEmpty } from '../../utils/object.js';
+import { cleanString } from '../../utils/string.js';
 import { LibrarySort } from '../../redux/actions.js';
 
 export const getLibrarySortingFunction = (librarySort) => {
@@ -31,9 +32,9 @@ export const trackInPlaylist = (track, playlist) => {
 }
 
 export const filterTrack = (track, text) => {
-    return track.name.indexOf(text) > -1
-           || track.artist.indexOf(text) > -1
-           || track.album.indexOf(text) > -1;
+    return cleanString(track.name).indexOf(text) > -1
+           || cleanString(track.artist).indexOf(text) > -1
+           || cleanString(track.album).indexOf(text) > -1;
 }
 
 export const getLibraryFilteringFunction = (libraryFilter, playlists) => {
@@ -44,5 +45,8 @@ export const getLibraryFilteringFunction = (libraryFilter, playlists) => {
         return (track) => filterTrack(track, libraryFilter.text);
 
     let mustBeInPlaylist = playlists.filter((p) => libraryFilter.playlists.includes(p.id));
+    if (isNullOrEmpty(libraryFilter.text))
+        return (track) => mustBeInPlaylist.some((p) => trackInPlaylist(track, p));
+
     return (track) => mustBeInPlaylist.some((p) => trackInPlaylist(track, p)) && filterTrack(track, libraryFilter.text);
 }

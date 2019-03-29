@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Library from './Library';
 import HeaderBar from './HeaderBar';
 import 'bootstrap/dist/css/bootstrap.css';
+import Toolbar from './library/Toolbar';
 
 
 // Presentational Component
@@ -21,6 +22,7 @@ class PController extends React.Component {
     render() {
         return <div><HeaderBar />
                  <Container>
+                    <Row style={{marginTop: "10px", marginBottom: "10px"}}><Toolbar /></Row>
                     <Row>
                         <Col>
                             <Library />

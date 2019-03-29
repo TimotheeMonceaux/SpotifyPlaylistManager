@@ -23,8 +23,6 @@ const DisplayName = styled.div`
     color: white;
     font-weight: bold;
     font-size: 100%;
-    margin-bottom: 10px;
-    margin-top: 5px;
 `;
 const Email = styled.div`
     color: white;

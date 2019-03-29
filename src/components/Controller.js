@@ -22,7 +22,7 @@ class PController extends React.Component {
     render() {
         return <div><HeaderBar />
                  <Container>
-                    <Row style={{marginTop: "10px", marginBottom: "10px"}}><Toolbar /></Row>
+                    <Row style={{marginTop: "25px", marginBottom: "10px"}}><Toolbar /></Row>
                     <Row>
                         <Col>
                             <Library />

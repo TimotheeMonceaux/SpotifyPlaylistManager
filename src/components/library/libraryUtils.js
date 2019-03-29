@@ -30,14 +30,19 @@ export const trackInPlaylist = (track, playlist) => {
     return playlist.tracks[track.id] > 0;
 }
 
+export const filterTrack = (track, text) => {
+    return track.name.indexOf(text) > -1
+           || track.artist.indexOf(text) > -1
+           || track.album.indexOf(text) > -1;
+}
+
 export const getLibraryFilteringFunction = (libraryFilter, playlists) => {
-    console.log(libraryFilter);
     if (isNullOrEmpty(libraryFilter.playlists) && libraryFilter.text === "")
         return () => true;
 
     if (isNullOrEmpty(libraryFilter.playlists))
-        return () => true; // TODO
+        return (track) => filterTrack(track, libraryFilter.text);
 
     let mustBeInPlaylist = playlists.filter((p) => libraryFilter.playlists.includes(p.id));
-    return (track) => mustBeInPlaylist.some((p) => trackInPlaylist(track, p));
+    return (track) => mustBeInPlaylist.some((p) => trackInPlaylist(track, p)) && filterTrack(track, libraryFilter.text);
 }

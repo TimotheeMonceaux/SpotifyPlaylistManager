@@ -131,6 +131,9 @@ const libraryFilterPlaylists = (playlists = [], action) => {
 const libraryFilterText = (text = "", action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.libraryFilter.text;
+
+    if (action.type === ActionType.CHANGE_LIBRARY_FILTER)
+        return action.text;
     
     return text;
 }

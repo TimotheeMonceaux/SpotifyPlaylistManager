@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { ActionType, LibrarySort } from './actions';
 import mapTrack from '../model/track';
+import { isNullOrEmpty } from '../utils/object.js';
 import { cleanString } from '../utils/string.js';
 
 const environment = (environment = "", action) => {
@@ -63,7 +64,7 @@ const userPlaylists = (userPlaylists = [], action) => {
     if (action.type === ActionType.APPEND_PLAYLIST_TRACKS) {
         let index = userPlaylists.findIndex((p) => p.id === action.playlistId);
         return [...userPlaylists.slice(0,index),
-                Object.assign({}, userPlaylists[index], {tracks: {...userPlaylists[index].tracks, ...action.tracks.map(t => t.track.id).reduce((o, id) => {o[id] = true; return o;}, {})}})
+                Object.assign({}, userPlaylists[index], {tracks: {...userPlaylists[index].tracks, ...action.tracks.map(t => t.track.id).reduce((o, id) => {o[id] = isNullOrEmpty(o[id]) ? 1 : o[id] + 1; return o;}, {})}})
                 ,...userPlaylists.slice(index+1, userPlaylists.length)];
     }
 

@@ -49,7 +49,9 @@ export const ActionCreator = {
                                         .then(response => response.json(), error => console.log(error))
                                         .then(json => {dispatch(ActionCreator.setEnvironment(json.environment));
                                                        if (json.environment === "TEST")
-                                                           dispatch(ActionCreator.forceState(json.testState));
+                                                            fetch(json.testState)
+                                                                .then(response => response.json(), error => console.log(error))
+                                                                .then(testState => {dispatch(ActionCreator.forceState(testState))})
                                                        else
                                                            dispatch(ActionCreator.setClientId(json.clientId));})),
     addUserToken: (userToken) => ({type: ActionType.SET_USER_TOKEN, userToken: userToken}),

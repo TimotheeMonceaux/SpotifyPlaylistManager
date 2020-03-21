@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import UserProfileCard from './headerbar/UserProfileCard';
 import Playlists from './headerbar/Playlists';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Separator = styled.div`
     height: 40px;
@@ -24,13 +24,13 @@ const HeaderBar = () => <Container fluid style={{paddingLeft: 0, paddingRight: 0
             <Separator></Separator>
             <Nav variant="pills" defaultActiveKey="/library">
                 <Nav.Item>
-                    <Nav.Link as={Link} to="/library">Library</Nav.Link>
+                    <NavLink to="/library" className={getLinkClassName("/", "/library", "/library/")}>Library</NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link as={Link} to="/duplicates">Duplicates</Nav.Link>
+                    <NavLink to="/duplicates" className={getLinkClassName("/duplicates", "/duplicates/")}>Duplicates</NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link as={Link} to="/ool">Out of Library</Nav.Link>
+                    <NavLink to="/ool" className={getLinkClassName("/ool", "/ool/")}>Out of Library</NavLink>
                 </Nav.Item>
             </Nav>
             <Navbar.Collapse className="justify-content-end">
@@ -40,5 +40,9 @@ const HeaderBar = () => <Container fluid style={{paddingLeft: 0, paddingRight: 0
             </Navbar.Collapse>
         </Navbar>
 </Container>;
+
+function getLinkClassName(expectedPathnames) {
+    return [...arguments].filter(pn => pn === window.location.pathname).length >= 1 ? "nav-link active" : "nav-link";
+}
 
 export default HeaderBar;

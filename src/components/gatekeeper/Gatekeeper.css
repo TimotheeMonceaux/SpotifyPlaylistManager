@@ -1,0 +1,14 @@
+.login {
+  background-color: #4A4A4A;
+  height: 100vh;
+  color: white;
+}
+
+.login h1 {
+    font-size: 400%;
+    margin-bottom: 40px;
+}
+
+.login i {
+    font-size: 150%;;
+}

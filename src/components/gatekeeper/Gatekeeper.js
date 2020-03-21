@@ -6,7 +6,7 @@ import { VLayout, HLayout } from '../Layout';
 import SpotifyLogin from 'react-spotify-login';
 import styled from 'styled-components';
 import Loading from '../Loading';
-import Controller from '../Controller';
+import Controller from '../library/LibraryController';
 import './Gatekeeper.css';
 
 const SSpotifyLogin = styled(SpotifyLogin)`
@@ -42,7 +42,7 @@ class PGatekeeper extends React.Component {
                     </VLayout>
                 </HLayout>
                 <HLayout>
-                    <SSpotifyLogin   clientId={this.props.clientId}
+                    <SSpotifyLogin  clientId={this.props.clientId}
                                     redirectUri={window.location.href + "callback/"}
                                     scope="user-read-private user-read-email user-library-read playlist-modify-public playlist-modify-private"
                                     onSuccess={json => this.props.onUserTokenRetrieved(json)}

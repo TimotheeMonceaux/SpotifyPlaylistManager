@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import UserProfileCard from './headerbar/UserProfileCard';
 import Playlists from './headerbar/Playlists';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Separator = styled.div`
     height: 40px;
@@ -23,13 +24,13 @@ const HeaderBar = () => <Container fluid style={{paddingLeft: 0, paddingRight: 0
             <Separator></Separator>
             <Nav variant="pills" defaultActiveKey="/library">
                 <Nav.Item>
-                    <Nav.Link href="/library">Library</Nav.Link>
+                    <Nav.Link as={Link} to="/library">Library</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link disabled>Duplicates</Nav.Link>
+                    <Nav.Link as={Link} to="/duplicates">Duplicates</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link disabled>Out of Library</Nav.Link>
+                    <Nav.Link as={Link} to="/ool">Out of Library</Nav.Link>
                 </Nav.Item>
             </Nav>
             <Navbar.Collapse className="justify-content-end">

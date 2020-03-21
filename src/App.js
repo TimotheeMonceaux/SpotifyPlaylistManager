@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Gatekeeper from './components/Gatekeeper';
+import Gatekeeper from './components/gatekeeper/Gatekeeper';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 class App extends Component {

@@ -5,9 +5,6 @@ import { isNullOrEmpty } from '../utils/object.js';
 import { cleanString } from '../utils/string.js';
 
 const environment = (environment = "", action) => {
-    if (environment !== "PROD")
-        console.log(action);
-
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.environment;
 

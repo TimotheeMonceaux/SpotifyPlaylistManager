@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../../redux/actions';
 import 'bootstrap/dist/css/bootstrap.css';
+import './Loader.css';
 import { Redirect } from 'react-router-dom';
 import Loading from '../Loading';
 import { isStateLoaded } from '../../redux/store-utils';
+import { VLayout, HLayout } from '../Layout';
 
 
 // Presentational Component
@@ -21,7 +23,18 @@ class PLoaderController extends React.Component {
     render() {
         if (!this.props.userToken) return <Redirect to={"/"} />
         if (isStateLoaded(this.props.loadingStatus)) return <Redirect to={"/library"} />;
-        return <div><Loading /></div>;
+
+        return <VLayout className="loader">
+                <HLayout>
+                    <Loading />
+                </HLayout>
+                <HLayout>
+                    <VLayout>
+                        {this.props.loadingStatus[0] < 1 && <p>Loading the library...</p>}
+                        {this.props.loadingStatus[1] < 1 && <p>Loading your playlists...</p>}
+                    </VLayout>
+                </HLayout>
+            </VLayout>;
     }
 }
 PLoaderController.propTypes = {

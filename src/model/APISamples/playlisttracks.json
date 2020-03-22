@@ -1,59 +1,249 @@
 {
-    "items": [
-      {
-        "track": {
-          "id": "2xYlyywNgefLCRDG8hlxZq"
-        }
-      },
-      {
-        "track": {
-          "id": "0fiPpwBPIaxxydn4KzX9Tc"
-        }
-      },
-      {
-        "track": {
-          "id": "1wClzvdrKmedrANj2tHKj7"
-        }
-      },
-      {
-        "track": {
-          "id": "53VhmC2brILxuf78WQHdVE"
-        }
-      },
-      {
-        "track": {
-          "id": "41fiRrzEqGo4pTVqXYrfnz"
-        }
-      },
-      {
-        "track": {
-          "id": "4MIXgItmCtVLCnT4BvU5tU"
-        }
-      },
-      {
-        "track": {
-          "id": "5olTVeWVSGogyQrzc7anUv"
-        }
-      },
-      {
-        "track": {
-          "id": "5p6me2mwQrGfH30eExHn6v"
-        }
-      },
-      {
-        "track": {
-          "id": "7A96l8P8UmFPhdu7pQ8SMe"
-        }
-      },
-      {
-        "track": {
-          "id": "3MC79TErHHp9FODo2ErBQ1"
-        }
+  "items": [
+    {
+      "track": {
+        "album": {
+          "name": "Red & Black Light"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/0NSO0g40h9CTj13hKPskeb"
+            },
+            "href": "https://api.spotify.com/v1/artists/0NSO0g40h9CTj13hKPskeb",
+            "id": "0NSO0g40h9CTj13hKPskeb",
+            "name": "Ibrahim Maalouf",
+            "type": "artist",
+            "uri": "spotify:artist:0NSO0g40h9CTj13hKPskeb"
+          }
+        ],
+        "id": "2UzEubzVXydWGd3Uc2Jslv",
+        "name": "Essentielles",
+        "uri": "spotify:track:2UzEubzVXydWGd3Uc2Jslv"
       }
-    ],
-    "limit": 10,
-    "next": "https://api.spotify.com/v1/playlists/3bZNlTUFlAJeBvMyyqSNzP/tracks?offset=10&limit=10&fields=items(track(id)),limit,next,offset,previous,total",
-    "offset": 0,
-    "previous": null,
-    "total": 147
-  }
+    },
+    {
+      "track": {
+        "album": {
+          "name": "Total"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/5tOWIviwLM1EIqGAbF8VSU"
+            },
+            "href": "https://api.spotify.com/v1/artists/5tOWIviwLM1EIqGAbF8VSU",
+            "id": "5tOWIviwLM1EIqGAbF8VSU",
+            "name": "SebastiAn",
+            "type": "artist",
+            "uri": "spotify:artist:5tOWIviwLM1EIqGAbF8VSU"
+          }
+        ],
+        "id": "1flyPSDvPgC2A0jUbj4Qgz",
+        "name": "Tetra",
+        "uri": "spotify:track:1flyPSDvPgC2A0jUbj4Qgz"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "name": "You've Got to..."
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/3gkX03yW2WrvcDMp04TKjN"
+            },
+            "href": "https://api.spotify.com/v1/artists/3gkX03yW2WrvcDMp04TKjN",
+            "id": "3gkX03yW2WrvcDMp04TKjN",
+            "name": "The Young Punx",
+            "type": "artist",
+            "uri": "spotify:artist:3gkX03yW2WrvcDMp04TKjN"
+          },
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4OQG8ttceevCWluX1i2BdO"
+            },
+            "href": "https://api.spotify.com/v1/artists/4OQG8ttceevCWluX1i2BdO",
+            "id": "4OQG8ttceevCWluX1i2BdO",
+            "name": "Norman Cook",
+            "type": "artist",
+            "uri": "spotify:artist:4OQG8ttceevCWluX1i2BdO"
+          },
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4Y7tXHSEejGu1vQ9bwDdXW"
+            },
+            "href": "https://api.spotify.com/v1/artists/4Y7tXHSEejGu1vQ9bwDdXW",
+            "id": "4Y7tXHSEejGu1vQ9bwDdXW",
+            "name": "Fatboy Slim",
+            "type": "artist",
+            "uri": "spotify:artist:4Y7tXHSEejGu1vQ9bwDdXW"
+          }
+        ],
+        "id": "2yozwNkPOBUs7caTUWv0cZ",
+        "name": "You've Got to... - Norman Cook Mix",
+        "uri": "spotify:track:2yozwNkPOBUs7caTUWv0cZ"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "name": "III"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/65dGLGjkw3UbddUg2GKQoZ"
+            },
+            "href": "https://api.spotify.com/v1/artists/65dGLGjkw3UbddUg2GKQoZ",
+            "id": "65dGLGjkw3UbddUg2GKQoZ",
+            "name": "BADBADNOTGOOD",
+            "type": "artist",
+            "uri": "spotify:artist:65dGLGjkw3UbddUg2GKQoZ"
+          }
+        ],
+        "id": "50EOZqb8JId0dLIGaAKDkf",
+        "name": "Can't Leave The Night",
+        "uri": "spotify:track:50EOZqb8JId0dLIGaAKDkf"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "name": "Dance Monkey (Stripped Back) / Dance Monkey"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/2NjfBq1NflQcKSeiDooVjY"
+            },
+            "href": "https://api.spotify.com/v1/artists/2NjfBq1NflQcKSeiDooVjY",
+            "id": "2NjfBq1NflQcKSeiDooVjY",
+            "name": "Tones And I",
+            "type": "artist",
+            "uri": "spotify:artist:2NjfBq1NflQcKSeiDooVjY"
+          }
+        ],
+        "id": "2XU0oxnq2qxCpomAAuJY8K",
+        "name": "Dance Monkey",
+        "uri": "spotify:track:2XU0oxnq2qxCpomAAuJY8K"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "name": "Fearless"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4hHzZPvlU4rRbYnkXddpid"
+            },
+            "href": "https://api.spotify.com/v1/artists/4hHzZPvlU4rRbYnkXddpid",
+            "id": "4hHzZPvlU4rRbYnkXddpid",
+            "name": "Marina Kaye",
+            "type": "artist",
+            "uri": "spotify:artist:4hHzZPvlU4rRbYnkXddpid"
+          }
+        ],
+        "id": "47IcfW83MnhrIsZWEVSmDs",
+        "name": "Homeless",
+        "uri": "spotify:track:47IcfW83MnhrIsZWEVSmDs"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "name": "Human (Deluxe)"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/4f9iBmdUOhQWeP7dcAn1pf"
+            },
+            "href": "https://api.spotify.com/v1/artists/4f9iBmdUOhQWeP7dcAn1pf",
+            "id": "4f9iBmdUOhQWeP7dcAn1pf",
+            "name": "Rag'n'Bone Man",
+            "type": "artist",
+            "uri": "spotify:artist:4f9iBmdUOhQWeP7dcAn1pf"
+          }
+        ],
+        "id": "58zsLZPvfflaiIbNWoA22O",
+        "name": "Human",
+        "uri": "spotify:track:58zsLZPvfflaiIbNWoA22O"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "name": "Sur le thème des grandes découvertes"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/53zPVFS5lrh8IAwsr7JdL1"
+            },
+            "href": "https://api.spotify.com/v1/artists/53zPVFS5lrh8IAwsr7JdL1",
+            "id": "53zPVFS5lrh8IAwsr7JdL1",
+            "name": "Salut C'est Cool",
+            "type": "artist",
+            "uri": "spotify:artist:53zPVFS5lrh8IAwsr7JdL1"
+          }
+        ],
+        "id": "00SMVZ9gzEYT6EHXleivkJ",
+        "name": "Bibliothèque",
+        "uri": "spotify:track:00SMVZ9gzEYT6EHXleivkJ"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "name": "Maison"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/53zPVFS5lrh8IAwsr7JdL1"
+            },
+            "href": "https://api.spotify.com/v1/artists/53zPVFS5lrh8IAwsr7JdL1",
+            "id": "53zPVFS5lrh8IAwsr7JdL1",
+            "name": "Salut C'est Cool",
+            "type": "artist",
+            "uri": "spotify:artist:53zPVFS5lrh8IAwsr7JdL1"
+          }
+        ],
+        "id": "3wLRNsACNgXg2adgmZRnxe",
+        "name": "Bout de bois",
+        "uri": "spotify:track:3wLRNsACNgXg2adgmZRnxe"
+      }
+    },
+    {
+      "track": {
+        "album": {
+          "name": "Spiritual State"
+        },
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/3Rq3YOF9YG9YfCWD4D56RZ"
+            },
+            "href": "https://api.spotify.com/v1/artists/3Rq3YOF9YG9YfCWD4D56RZ",
+            "id": "3Rq3YOF9YG9YfCWD4D56RZ",
+            "name": "Nujabes",
+            "type": "artist",
+            "uri": "spotify:artist:3Rq3YOF9YG9YfCWD4D56RZ"
+          }
+        ],
+        "id": "4eoRzZzyJ229aP2amYCbmn",
+        "name": "Far Fowls",
+        "uri": "spotify:track:4eoRzZzyJ229aP2amYCbmn"
+      }
+    }
+  ],
+  "limit": 10,
+  "next": "https://api.spotify.com/v1/playlists/3WsO1eju7ISVW4lyrSyIkU/tracks?offset=10&limit=10&fields=items(track(id,name,album(name),artists(name),uri)),limit,next,offset,previous,total&market=from_token",
+  "offset": 0,
+  "previous": null,
+  "total": 125
+}

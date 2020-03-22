@@ -61,14 +61,14 @@ const userPlaylists = (userPlaylists = [], action) => {
     if (action.type === ActionType.APPEND_PLAYLIST_TRACKS) {
         let index = userPlaylists.findIndex((p) => p.id === action.playlistId);
         return [...userPlaylists.slice(0,index),
-                Object.assign({}, userPlaylists[index], {tracks: {...userPlaylists[index].tracks, ...action.tracks.map(t => t.track.id).reduce((o, id) => {o[id] = isNullOrEmpty(o[id]) ? 1 : o[id] + 1; return o;}, {})}})
+                Object.assign({}, userPlaylists[index], {tracks: {...userPlaylists[index].tracks, ...action.tracks.map(t => mapTrack(t)).reduce((o, t) => {o[t.id] = isNullOrEmpty(o[t.id]) ? {...t, count: 1} : {...t, count: o[t.id].count + 1}; return o;}, {})}})
                 ,...userPlaylists.slice(index+1, userPlaylists.length)];
     }
 
     if (action.type === ActionType.ADD_PLAYLIST_TRACK) {
         let index = userPlaylists.findIndex((p) => p.id === action.playlistId);
         let tracks = Object.assign({}, userPlaylists[index].tracks)
-        tracks[action.trackId] = true;
+        tracks[action.trackId] = {count: 1, id: action.trackId};
         return [...userPlaylists.slice(0,index),
             Object.assign({}, userPlaylists[index], {tracks: tracks})
             ,...userPlaylists.slice(index+1, userPlaylists.length)];
@@ -77,7 +77,7 @@ const userPlaylists = (userPlaylists = [], action) => {
     if (action.type === ActionType.DELETE_PLAYLIST_TRACK) {
         let index = userPlaylists.findIndex((p) => p.id === action.playlistId);
         let tracks = Object.assign({}, userPlaylists[index].tracks)
-        tracks[action.trackId] = false;
+        tracks[action.trackId] = {};
         return [...userPlaylists.slice(0,index),
             Object.assign({}, userPlaylists[index], {tracks: tracks})
             ,...userPlaylists.slice(index+1, userPlaylists.length)];
@@ -101,7 +101,7 @@ const loadingStatus = (loadingStatus = [0,0], action) => {
         return action.newState.loadingStatus;
 
     if (action.type === ActionType.ADD_USER_PLAYLISTS)
-        return [loadingStatus[0], -1 * action.userPlaylists.length + 1]
+        return [loadingStatus[0], -1 * action.userPlaylists.length + 1];
 
     if (action.type === ActionType.IS_LIBRARY_LOADED)
         return [1, loadingStatus[1]];

@@ -3,33 +3,37 @@ export const ActionType = {
     SET_ENVIRONMENT: 1,
 
     // Spotify Client Id
-    LOAD_CLIENT_ID: 2,
-    SET_CLIENT_ID: 3,
+    LOAD_CLIENT_ID: 10,
+    SET_CLIENT_ID: 11,
 
     // Spotify Token
-    SET_USER_TOKEN: 4,
+    SET_USER_TOKEN: 12,
 
     // User Profile
-    LOAD_USER_PROFILE: 5,
-    ADD_USER_PROFILE: 6,
+    LOAD_USER_PROFILE: 20,
+    ADD_USER_PROFILE: 21,
 
     // User PLaylists
-    LOAD_USER_PLAYLISTS: 7,
-    ADD_USER_PLAYLISTS: 8,
-    TOGGLE_USER_PLAYLIST: 9,
+    LOAD_USER_PLAYLISTS: 30,
+    ADD_USER_PLAYLISTS: 31,
+    TOGGLE_USER_PLAYLIST: 32,
 
     // Library
-    LOAD_LIBRARY_TRACKS: 10,
-    APPEND_LIBRARY_TRACKS: 11,
-    CHANGE_LIBRARY_SORT: 12,
-    TOGGLE_LIBRARY_PLAYLIST_FILTER: 13,
-    CHANGE_LIBRARY_FILTER: 14,
+    LOAD_LIBRARY_TRACKS: 40,
+    APPEND_LIBRARY_TRACKS: 41,
+    CHANGE_LIBRARY_SORT: 42,
+    TOGGLE_LIBRARY_PLAYLIST_FILTER: 43,
+    CHANGE_LIBRARY_FILTER: 44,
 
     // Playlist tracks
-    LOAD_PLAYLIST_TRACKS: 15,
-    APPEND_PLAYLIST_TRACKS: 16,
-    ADD_PLAYLIST_TRACK: 17,
-    DELETE_PLAYLIST_TRACK: 18
+    LOAD_PLAYLIST_TRACKS: 50,
+    APPEND_PLAYLIST_TRACKS: 51,
+    ADD_PLAYLIST_TRACK: 52,
+    DELETE_PLAYLIST_TRACK: 53,
+
+    // Loading Status
+    IS_LIBRARY_LOADED: 60,
+    IS_PLAYLIST_LOADED: 61
 }
 
 // other constants
@@ -87,8 +91,12 @@ export const ActionCreator = {
                                         .then(response => response.json(), error => console.log(error))
                                         .then(json => {dispatch(ActionCreator.appendLibraryTracks(json.items))
                                                         if (json.next !== null)
-                                                            dispatch(ActionCreator.loadLibraryTracks(userToken, offset + json.limit))})),
+                                                            dispatch(ActionCreator.loadLibraryTracks(userToken, offset + json.limit))
+                                                        else 
+                                                            dispatch(ActionCreator.isLibraryLoaded())})),
     appendLibraryTracks: (tracks) => ({type: ActionType.APPEND_LIBRARY_TRACKS, tracks: tracks}),
+    isLibraryLoaded: () => ({type: ActionType.IS_LIBRARY_LOADED}),
+    isPlaylistLoaded: () => ({type: ActionType.IS_PLAYLIST_LOADED}),
     changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),
     toggleLibraryPlaylistFilter: (playlistId) => ({type: ActionType.TOGGLE_LIBRARY_PLAYLIST_FILTER, playlistId: playlistId}),
     changeLibraryFilter: (text) => ({type: ActionType.CHANGE_LIBRARY_FILTER, text: text}),
@@ -102,7 +110,9 @@ export const ActionCreator = {
                                                 .then(response => response.json(), error => console.log(error))
                                                 .then(json => {dispatch(ActionCreator.appendPlaylistTracks(playlistId, json.items))
                                                                if (json.next !== null)
-                                                                    dispatch(ActionCreator.loadPlaylistTracks(userToken, playlistId, offset + json.limit))})),
+                                                                    dispatch(ActionCreator.loadPlaylistTracks(userToken, playlistId, offset + json.limit))
+                                                                else
+                                                                    dispatch(ActionCreator.isPlaylistLoaded())})),
     appendPlaylistTracks: (playlistId, tracks) => ({type: ActionType.APPEND_PLAYLIST_TRACKS, playlistId: playlistId, tracks: tracks}),
     addPlaylistTrack: (userToken, playlistId, trackId) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks?uris=spotify:track:"+trackId,
                                                     {

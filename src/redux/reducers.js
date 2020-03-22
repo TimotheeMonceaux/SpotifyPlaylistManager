@@ -96,6 +96,22 @@ const library = (library = [], action) => {
     return library;
 }
 
+const loadingStatus = (loadingStatus = [0,0], action) => {
+    if (action.type === ActionType.FORCE_STATE)
+        return action.newState.loadingStatus;
+
+    if (action.type === ActionType.ADD_USER_PLAYLISTS)
+        return [loadingStatus[0], -1 * action.userPlaylists.length + 1]
+
+    if (action.type === ActionType.IS_LIBRARY_LOADED)
+        return [1, loadingStatus[1]];
+
+    if (action.type === ActionType.IS_PLAYLIST_LOADED)
+        return [loadingStatus[0], loadingStatus[1]+1];
+
+    return loadingStatus;
+}
+
 const librarySort = (librarySort = {sort: LibrarySort.DEFAULT, asc: 1}, action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.librarySort;
@@ -149,6 +165,7 @@ const reducer = combineReducers ({
     userProfile,
     userPlaylists,
     library,
+    loadingStatus,
     librarySort,
     libraryFilter
 });

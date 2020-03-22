@@ -7,6 +7,7 @@ import HeaderBar from '../HeaderBar';
 import 'bootstrap/dist/css/bootstrap.css';
 import Toolbar from '../Toolbar';
 import { Redirect } from 'react-router-dom';
+import { isStateLoaded } from '../../redux/store-utils';
 
 
 // Presentational Component
@@ -21,6 +22,7 @@ class PDuplicatesController extends React.Component {
 
     render() {
         if (!this.props.userToken) return <Redirect to={"/"} />
+        if (!isStateLoaded(this.props.loadingStatus)) return <Redirect to={"/loading"} />;
         return <div><HeaderBar />
                  <Container>
                     <Row style={{marginTop: "25px", marginBottom: "10px"}}><Toolbar /></Row>
@@ -38,7 +40,8 @@ PDuplicatesController.propTypes = {
     userToken: PropTypes.string.isRequired,
     userProfile: PropTypes.object.isRequired,
     userPlaylists: PropTypes.array.isRequired,
-    library: PropTypes.array.isRequired
+    library: PropTypes.array.isRequired,
+    loadingStatus: PropTypes.array.isRequired
 }
 
 // Container Component
@@ -48,7 +51,8 @@ const mapStateToProps = state => {
         userToken: state.userToken,
         userProfile: state.userProfile,
         userPlaylists: state.userPlaylists,
-        library: state.library
+        library: state.library,
+        loadingStatus: state.loadingStatus
     };
 }
 const mapDispatchToProps = dispatch => {

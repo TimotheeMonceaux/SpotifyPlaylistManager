@@ -12,6 +12,7 @@ class App extends Component {
           <Switch>
             <Route name="home" exact path="/" component={Gatekeeper}/>
             <Route name="callback" path="/callback/" component={Gatekeeper}/>
+            <Route name="loading" path="/loading/" component={Gatekeeper}/>
             <Route name="library" path="/library/" component={LibraryController}/>
             <Route name="duplicates" path="/duplicates/" component={DuplicatesController}/>
             <Route name="ool" path="/ool/" component={OOLController}/>

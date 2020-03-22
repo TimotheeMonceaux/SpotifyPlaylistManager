@@ -50,7 +50,7 @@ class PGatekeeper extends React.Component {
                 </HLayout>
             </VLayout>;
         }
-        return <Redirect to="/library" />;
+        return <Redirect to="/loading" />;
         
     }
 }

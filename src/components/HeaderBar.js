@@ -24,7 +24,7 @@ const HeaderBar = () => <Container fluid style={{paddingLeft: 0, paddingRight: 0
             <Separator></Separator>
             <Nav variant="pills" defaultActiveKey="/library">
                 <Nav.Item>
-                    <NavLink to="/library" className={getLinkClassName("/", "/library", "/library/")}>Library</NavLink>
+                    <NavLink to="/library" className={getLinkClassName("/library", "/library/")}>Library</NavLink>
                 </Nav.Item>
                 <Nav.Item>
                     <NavLink to="/duplicates" className={getLinkClassName("/duplicates", "/duplicates/")}>Duplicates</NavLink>

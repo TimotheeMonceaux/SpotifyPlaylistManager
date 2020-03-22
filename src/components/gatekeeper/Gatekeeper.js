@@ -6,8 +6,8 @@ import { VLayout, HLayout } from '../Layout';
 import SpotifyLogin from 'react-spotify-login';
 import styled from 'styled-components';
 import Loading from '../Loading';
-import Controller from '../library/LibraryController';
 import './Gatekeeper.css';
+import { Redirect } from 'react-router-dom';
 
 const SSpotifyLogin = styled(SpotifyLogin)`
     color: white;
@@ -50,7 +50,7 @@ class PGatekeeper extends React.Component {
                 </HLayout>
             </VLayout>;
         }
-        return <Controller />;
+        return <Redirect to="/library" />;
         
     }
 }

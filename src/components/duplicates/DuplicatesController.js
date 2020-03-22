@@ -6,12 +6,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 import HeaderBar from '../HeaderBar';
 import 'bootstrap/dist/css/bootstrap.css';
 import Toolbar from '../Toolbar';
+import { Redirect } from 'react-router-dom';
 
 
 // Presentational Component
 class PDuplicatesController extends React.Component {
     componentWillMount() {
-        if (this.props.environment !== "TEST") {
+        if (this.props.environment !== "TEST" && this.props.userToken) {
             this.props.loadUserProfile(this.props.userToken);
             this.props.loadUserPlaylists(this.props.userToken);
             this.props.loadLibraryTracks(this.props.userToken);
@@ -19,6 +20,7 @@ class PDuplicatesController extends React.Component {
     }
 
     render() {
+        if (!this.props.userToken) return <Redirect to={"/"} />
         return <div><HeaderBar />
                  <Container>
                     <Row style={{marginTop: "25px", marginBottom: "10px"}}><Toolbar /></Row>

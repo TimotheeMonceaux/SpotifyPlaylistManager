@@ -44,7 +44,7 @@ class PGatekeeper extends React.Component {
                 <HLayout>
                     <SSpotifyLogin  clientId={this.props.clientId}
                                     redirectUri={window.location.href + "callback/"}
-                                    scope="user-read-private user-read-email user-library-read playlist-modify-public playlist-modify-private"
+                                    scope="user-read-private user-read-email user-library-read user-library-modify playlist-modify-public playlist-modify-private"
                                     onSuccess={json => this.props.onUserTokenRetrieved(json)}
                                     onFailure={json => console.error(json)}/>
                 </HLayout>

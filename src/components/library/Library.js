@@ -14,7 +14,7 @@ const StyledLibrary = styled.div`
 
 const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter,
                    onTitleClicked, onArtistClicked, onAlbumClicked, onPlaylistClicked, 
-                   onNotInPlaylistClicked, onInPlaylistClicked}) => (
+                   onNotInPlaylistClicked, onInPlaylistClicked, onNotLikedClicked, onLikedClicked}) => (
     <StyledLibrary>
         <table>
             <thead>
@@ -31,7 +31,14 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
             {Object.values(library)
                     .filter(getLibraryFilteringFunction(libraryFilter, userPlaylists))
                     .sort(getLibrarySortingFunction(librarySort))
-                    .map((track) => <Track key={track.id} userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />)}
+                    .map((track) => <Track key={track.id} 
+                                           userToken={userToken} 
+                                           track={track} 
+                                           userPlaylists={userPlaylists} 
+                                           onNotInPlaylistClicked={onNotInPlaylistClicked} 
+                                           onInPlaylistClicked={onInPlaylistClicked}
+                                           onLikedClicked={onLikedClicked}
+                                           onNotLikedClicked={onNotLikedClicked} />)}
             </tbody>
         </table>
     </StyledLibrary>
@@ -61,7 +68,9 @@ const mapDispatchToProps = dispatch => {
          onAlbumClicked: () => {dispatch(ActionCreator.changeLibrarySort(LibrarySort.ALBUM))},
          onPlaylistClicked: (playlistId) => {return () => dispatch(ActionCreator.toggleLibraryPlaylistFilter(playlistId))},
          onNotInPlaylistClicked: (userToken, playlistId, trackId) => {return () => dispatch(ActionCreator.addPlaylistTrack(userToken, playlistId, trackId))},
-         onInPlaylistClicked: (userToken, playlistId, trackId) => {return () => dispatch(ActionCreator.deletePlaylistTrack(userToken, playlistId, trackId))}
+         onInPlaylistClicked: (userToken, playlistId, trackId) => {return () => dispatch(ActionCreator.deletePlaylistTrack(userToken, playlistId, trackId))},
+         onNotLikedClicked: (userToken, trackId) => {return () => dispatch(ActionCreator.addLikedSong(userToken, trackId))},
+         onLikedClicked: (userToken, trackId) => {return () => dispatch(ActionCreator.deleteLikedSong(userToken, trackId))}
     }
 }
 const Library = connect(

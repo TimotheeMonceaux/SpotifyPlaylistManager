@@ -79,6 +79,12 @@ const library = (library = {}, action) => {
     if (action.type === ActionType.DELETE_PLAYLIST_TRACK)
         return _.merge({}, library, { [action.trackId]: {inPlaylists: {[action.playlistId]: false}}});
 
+    if (action.type === ActionType.ADD_LIKED_SONG) 
+        return _.merge({}, library, { [action.trackId]: {liked: true}});
+
+    if (action.type === ActionType.DELETE_LIKED_SONG)
+        return _.merge({}, library, { [action.trackId]: {liked: false}});
+
     return library;
 }
 

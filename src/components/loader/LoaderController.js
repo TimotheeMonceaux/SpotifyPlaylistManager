@@ -30,8 +30,8 @@ class PLoaderController extends React.Component {
                 </HLayout>
                 <HLayout>
                     <VLayout>
-                        {this.props.loadingStatus[0] < 1 && <p>Loading the library...</p>}
-                        {this.props.loadingStatus[1] < 1 && <p>Loading your playlists...</p>}
+                        {this.props.loadingStatus.library < 1 && <p>Loading the library...</p>}
+                        {this.props.loadingStatus.playlists < 1 && <p>Loading your playlists...</p>}
                     </VLayout>
                 </HLayout>
             </VLayout>;
@@ -40,7 +40,7 @@ class PLoaderController extends React.Component {
 PLoaderController.propTypes = {
     environment: PropTypes.string.isRequired,
     userToken: PropTypes.string.isRequired,
-    loadingStatus: PropTypes.array.isRequired
+    loadingStatus: PropTypes.object.isRequired
 }
 
 // Container Component

@@ -34,7 +34,7 @@ PLibraryController.propTypes = {
     userProfile: PropTypes.object.isRequired,
     userPlaylists: PropTypes.array.isRequired,
     library: PropTypes.array.isRequired,
-    loadingStatus: PropTypes.array.isRequired
+    loadingStatus: PropTypes.object.isRequired
 }
 
 // Container Component

@@ -96,19 +96,21 @@ const library = (library = [], action) => {
     return library;
 }
 
-const loadingStatus = (loadingStatus = [0,0], action) => {
+const loadingStatus = (loadingStatus = {userProfile: 0, playlistsList: 0, library: 0, playlists: 0}, action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.loadingStatus;
 
+    if (action.type === ActionType.ADD_USER_PROFILE)
+        return {...loadingStatus, userProfile: 1}
+
     if (action.type === ActionType.ADD_USER_PLAYLISTS)
-        return [loadingStatus[0], -1 * action.userPlaylists.length + 1];
+        return {...loadingStatus, playlistsList: 1, playlists: -1 * action.userPlaylists.length + 1};
 
     if (action.type === ActionType.IS_LIBRARY_LOADED)
-        return [1, loadingStatus[1]];
+        return {...loadingStatus, library: 1};
 
     if (action.type === ActionType.IS_PLAYLIST_LOADED)
-        return [loadingStatus[0], loadingStatus[1]+1];
-
+        return {...loadingStatus, playlists: loadingStatus.playlists + 1};
     return loadingStatus;
 }
 

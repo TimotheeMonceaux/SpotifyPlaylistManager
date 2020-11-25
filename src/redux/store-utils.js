@@ -1,3 +1,6 @@
 export function isStateLoaded(loadingStatus) {
-    return loadingStatus[0] === 1 && loadingStatus[1] === 1;
+    return loadingStatus.userProfile >= 1 
+        && loadingStatus.playlistsList >= 1
+        && loadingStatus.library >= 1
+        && loadingStatus.playlists >= 1;
 }

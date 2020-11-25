@@ -15518,7 +15518,12 @@
         "uri": "spotify:track:4NhopCkhp8v8l0ynuJnEwB"
       }
     ],
-    "loadingStatus": [1,1],
+    "loadingStatus": {
+      "userProfile": 1,
+      "playlistsList": 1,
+      "library": 1,
+      "playlists": 1
+    },
     "librarySort": {
       "sort": 0,
       "asc": 1

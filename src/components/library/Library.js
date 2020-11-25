@@ -20,6 +20,7 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
             <thead>
                 <tr>
                     <th></th>
+                    <th></th>
                     <th onClick={onTitleClicked}><img src={getTitleArrowsUrl(librarySort)} alt="Sorting Arrows"/> Title</th>
                     <th onClick={onArtistClicked}><img src={getArtistArrowsUrl(librarySort)} alt="Sorting Arrows"/> Artist</th>
                     <th onClick={onAlbumClicked}><img src={getAlbumArrowsUrl(librarySort)} alt="Sorting Arrows"/> Album</th>

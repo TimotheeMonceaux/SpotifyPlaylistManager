@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import { ActionType, LibrarySort } from './actions';
-import mapTrack from '../model/track';
+import { mapTrack, mapTrackFromPlaylist } from '../model/track';
+import _ from 'lodash';
 import mapPlaylist from '../model/playlist';
-import { isNullOrEmpty, arrayToObject } from '../utils/object.js';
+import { arrayToObject } from '../utils/object.js';
 import { cleanString } from '../utils/string.js';
 
 const environment = (environment = "", action) => {
@@ -59,31 +60,6 @@ const userPlaylists = (userPlaylists = [], action) => {
                 ...userPlaylists.slice(index+1, userPlaylists.length)];
     }
 
-    if (action.type === ActionType.APPEND_PLAYLIST_TRACKS) {
-        let index = userPlaylists.findIndex((p) => p.id === action.playlistId);
-        return [...userPlaylists.slice(0,index),
-                Object.assign({}, userPlaylists[index], {tracks: {...userPlaylists[index].tracks, ...action.tracks.map(t => mapTrack(t)).reduce((o, t) => {o[t.id] = isNullOrEmpty(o[t.id]) ? {...t, count: 1} : {...t, count: o[t.id].count + 1}; return o;}, {})}})
-                ,...userPlaylists.slice(index+1, userPlaylists.length)];
-    }
-
-    if (action.type === ActionType.ADD_PLAYLIST_TRACK) {
-        let index = userPlaylists.findIndex((p) => p.id === action.playlistId);
-        let tracks = Object.assign({}, userPlaylists[index].tracks)
-        tracks[action.trackId] = {count: 1, id: action.trackId};
-        return [...userPlaylists.slice(0,index),
-            Object.assign({}, userPlaylists[index], {tracks: tracks})
-            ,...userPlaylists.slice(index+1, userPlaylists.length)];
-    }
-
-    if (action.type === ActionType.DELETE_PLAYLIST_TRACK) {
-        let index = userPlaylists.findIndex((p) => p.id === action.playlistId);
-        let tracks = Object.assign({}, userPlaylists[index].tracks)
-        tracks[action.trackId] = {};
-        return [...userPlaylists.slice(0,index),
-            Object.assign({}, userPlaylists[index], {tracks: tracks})
-            ,...userPlaylists.slice(index+1, userPlaylists.length)];
-    }
-
     return userPlaylists;
 }
 
@@ -93,6 +69,15 @@ const library = (library = {}, action) => {
 
     if (action.type === ActionType.APPEND_LIBRARY_TRACKS)
         return {...arrayToObject(action.tracks.map(item => mapTrack(item, true)), t => t.id), ...library};
+
+    if (action.type === ActionType.APPEND_PLAYLIST_TRACKS)
+        return _.merge({}, arrayToObject(action.tracks.map(item => mapTrackFromPlaylist(item, action.playlistId)), t => t.id), library);
+
+    if (action.type === ActionType.ADD_PLAYLIST_TRACK) 
+        return _.merge({}, library, { [action.trackId]: {inPlaylists: {[action.playlistId]: true}}});
+
+    if (action.type === ActionType.DELETE_PLAYLIST_TRACK)
+        return _.merge({}, library, { [action.trackId]: {inPlaylists: {[action.playlistId]: false}}});
 
     return library;
 }

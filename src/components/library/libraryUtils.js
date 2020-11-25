@@ -28,7 +28,7 @@ export const getAlbumArrowsUrl = (librarySort) => {
 }
 
 export const trackInPlaylist = (track, playlist) => {
-    return !isNullOrEmpty(playlist.tracks[track.id]);
+    return track.inPlaylists[playlist.id] === true;
 }
 
 export const filterTrack = (track, text) => {

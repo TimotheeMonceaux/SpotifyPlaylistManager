@@ -7,6 +7,7 @@
     "express": "^4.16.4",
     "express-favicon": "^2.0.1",
     "griddle-react": "^1.13.1",
+    "lodash": "^4.17.20",
     "npm": "^6.8.0",
     "path": "^0.12.7",
     "react": "^16.8.3",

@@ -79,9 +79,8 @@ export const ActionCreator = {
                                                     cache: 'default' 
                                                 })
                                         .then(response => response.json(), error => console.log(error))
-                                        .then(json => dispatch(ActionCreator.addUserPlaylists(json.items, userToken)))),
-    addUserPlaylists: (userPlaylists, userToken) => ((dispatch) => {dispatch({type: ActionType.ADD_USER_PLAYLISTS, userPlaylists: userPlaylists});
-                                                         userPlaylists.map(p => dispatch(ActionCreator.loadPlaylistTracks(userToken, p.id)));}),
+                                        .then(json => dispatch(ActionCreator.addUserPlaylists(json.items)))),
+    addUserPlaylists: (userPlaylists) => (dispatch) => dispatch({type: ActionType.ADD_USER_PLAYLISTS, userPlaylists: userPlaylists}),
     toggleUserPlaylist: (playlistId) => ({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId}),
     loadLibraryTracks: (userToken, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?market=from_token&limit=50&offset="+offset,
                                                 {

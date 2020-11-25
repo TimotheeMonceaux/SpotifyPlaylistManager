@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { ActionType, LibrarySort } from './actions';
 import mapTrack from '../model/track';
 import mapPlaylist from '../model/playlist';
-import { isNullOrEmpty } from '../utils/object.js';
+import { isNullOrEmpty, arrayToObject } from '../utils/object.js';
 import { cleanString } from '../utils/string.js';
 
 const environment = (environment = "", action) => {
@@ -87,12 +87,12 @@ const userPlaylists = (userPlaylists = [], action) => {
     return userPlaylists;
 }
 
-const library = (library = [], action) => {
+const library = (library = {}, action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.library;
 
     if (action.type === ActionType.APPEND_LIBRARY_TRACKS)
-        return library.concat(action.tracks.map(item => mapTrack(item)));
+        return {...arrayToObject(action.tracks.map(item => mapTrack(item, true)), t => t.id), ...library};
 
     return library;
 }

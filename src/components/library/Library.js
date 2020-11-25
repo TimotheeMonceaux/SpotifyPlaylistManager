@@ -27,7 +27,8 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
                 </tr>
             </thead>
             <tbody>
-            {library.filter(getLibraryFilteringFunction(libraryFilter, userPlaylists))
+            {Object.values(library)
+                    .filter(getLibraryFilteringFunction(libraryFilter, userPlaylists))
                     .sort(getLibrarySortingFunction(librarySort))
                     .map((track) => <Track key={track.id} userToken={userToken} track={track} userPlaylists={userPlaylists} onNotInPlaylistClicked={onNotInPlaylistClicked} onInPlaylistClicked={onInPlaylistClicked} />)}
             </tbody>
@@ -36,7 +37,7 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
 )
 PLibrary.propTypes = {
     userToken: PropTypes.string.isRequired,
-    library: PropTypes.array.isRequired,
+    library: PropTypes.object.isRequired,
     librarySort: PropTypes.object.isRequired,
     libraryFilter: PropTypes.object.isRequired,
     userPlaylists: PropTypes.array.isRequired

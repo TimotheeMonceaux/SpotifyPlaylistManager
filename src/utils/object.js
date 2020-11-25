@@ -4,3 +4,7 @@ export const isNullOrEmpty = (obj) => {
     for (var key in obj) if (obj.hasOwnProperty(key)) return false;
     return true;
 };
+
+export const arrayToObject = (arr, keySelector, valueSelector = x => x) => {
+    return arr.reduce((a,b) => (a[keySelector(b)] = valueSelector(b), a), {});
+}

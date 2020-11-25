@@ -56,29 +56,20 @@ class PGatekeeper extends React.Component {
 }
 PGatekeeper.propTypes = {
     clientId: PropTypes.string.isRequired,
-    userToken: PropTypes.string.isRequired,
-    userProfile: PropTypes.object.isRequired,
-    userPlaylists: PropTypes.array.isRequired,
-    library: PropTypes.array.isRequired
+    userToken: PropTypes.string.isRequired
 }
 
 // Container Component
 const mapStateToProps = state => {
     return {
         clientId: state.clientId,
-        userToken: state.userToken,
-        userProfile: state.userProfile,
-        userPlaylists: state.userPlaylists,
-        library: state.library
+        userToken: state.userToken
     };
 }
 const mapDispatchToProps = dispatch => {
     return {
         loadInitialConfig: () => {dispatch(ActionCreator.loadInitialConfig())},
-        onUserTokenRetrieved: (json) => {dispatch(ActionCreator.addUserToken(json.access_token))},
-        loadUserProfile: (token) => {dispatch(ActionCreator.loadUserProfile(token))},
-        loadUserPlaylists: (token) => {dispatch(ActionCreator.loadUserPlaylists(token))},
-        loadLibraryTracks: (token) => {dispatch(ActionCreator.loadLibraryTracks(token))}
+        onUserTokenRetrieved: (json) => {dispatch(ActionCreator.addUserToken(json.access_token))}
     }
 }
 const Gatekeeper = connect(

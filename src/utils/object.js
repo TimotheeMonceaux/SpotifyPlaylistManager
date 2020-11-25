@@ -6,5 +6,5 @@ export const isNullOrEmpty = (obj) => {
 };
 
 export const arrayToObject = (arr, keySelector, valueSelector = x => x) => {
-    return arr.reduce((a,b) => (a[keySelector(b)] = valueSelector(b), a), {});
+    return arr.reduce((a, b) => ((a[keySelector(b)] = valueSelector(b), a)), {});
 }

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { ActionType, LibrarySort } from './actions';
 import mapTrack from '../model/track';
+import mapPlaylist from '../model/playlist';
 import { isNullOrEmpty } from '../utils/object.js';
 import { cleanString } from '../utils/string.js';
 
@@ -49,7 +50,7 @@ const userPlaylists = (userPlaylists = [], action) => {
         return action.newState.userPlaylists;
 
     if (action.type === ActionType.ADD_USER_PLAYLISTS)
-        return action.userPlaylists.map((p) => Object.assign({}, p, {enabled: true, tracks: {}}));
+        return action.userPlaylists.map((p) => Object.assign({}, mapPlaylist(p), {enabled: true, tracks: {}}));
 
     if (action.type === ActionType.TOGGLE_USER_PLAYLIST) {
         let index = userPlaylists.findIndex((p) => p.id === action.playlistId);

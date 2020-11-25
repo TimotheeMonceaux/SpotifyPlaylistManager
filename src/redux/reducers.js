@@ -136,6 +136,16 @@ const libraryFilterPlaylists = (playlists = [], action) => {
     return playlists;
 }
 
+const libraryFilterLikedSongs = (likedSongs = false, action) => {
+    if (action.type === ActionType.FORCE_STATE)
+        return action.newState.libraryFilter.likedSongs;
+
+    if (action.type === ActionType.TOGGLE_LIKED_SONGS_FILTER)
+        return !likedSongs;
+    
+    return likedSongs;
+}
+
 
 const libraryFilterText = (text = "", action) => {
     if (action.type === ActionType.FORCE_STATE)
@@ -149,6 +159,7 @@ const libraryFilterText = (text = "", action) => {
 
 const libraryFilter = combineReducers({
     playlists: libraryFilterPlaylists,
+    likedSongs: libraryFilterLikedSongs,
     text: libraryFilterText
 })
 

@@ -13,14 +13,14 @@ const StyledLibrary = styled.div`
 `;
 
 const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter,
-                   onTitleClicked, onArtistClicked, onAlbumClicked, onPlaylistClicked, 
+                   onLikedSongsClicked, onTitleClicked, onArtistClicked, onAlbumClicked, onPlaylistClicked, 
                    onNotInPlaylistClicked, onInPlaylistClicked, onNotLikedClicked, onLikedClicked}) => (
     <StyledLibrary>
         <table>
             <thead>
                 <tr>
                     <th style={{cursor: "default"}}></th>
-                    <th></th>
+                    <th onClick={onLikedSongsClicked} style={libraryFilter.likedSongs ? {backgroundColor: "#555"} : {}}></th>
                     <th onClick={onTitleClicked}><img src={getTitleArrowsUrl(librarySort)} alt="Sorting Arrows"/> Title</th>
                     <th onClick={onArtistClicked}><img src={getArtistArrowsUrl(librarySort)} alt="Sorting Arrows"/> Artist</th>
                     <th onClick={onAlbumClicked}><img src={getAlbumArrowsUrl(librarySort)} alt="Sorting Arrows"/> Album</th>
@@ -66,6 +66,7 @@ const mapDispatchToProps = dispatch => {
          onTitleClicked: () => {dispatch(ActionCreator.changeLibrarySort(LibrarySort.TITLE))},
          onArtistClicked: () => {dispatch(ActionCreator.changeLibrarySort(LibrarySort.ARTIST))},
          onAlbumClicked: () => {dispatch(ActionCreator.changeLibrarySort(LibrarySort.ALBUM))},
+         onLikedSongsClicked: () => {dispatch(ActionCreator.toggleLikedSongsFilter())},
          onPlaylistClicked: (playlistId) => {return () => dispatch(ActionCreator.toggleLibraryPlaylistFilter(playlistId))},
          onNotInPlaylistClicked: (userToken, playlistId, trackId) => {return () => dispatch(ActionCreator.addPlaylistTrack(userToken, playlistId, trackId))},
          onInPlaylistClicked: (userToken, playlistId, trackId) => {return () => dispatch(ActionCreator.deletePlaylistTrack(userToken, playlistId, trackId))},

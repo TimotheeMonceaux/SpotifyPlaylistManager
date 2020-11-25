@@ -23,6 +23,7 @@ export const ActionType = {
     APPEND_LIBRARY_TRACKS: "APPEND_LIBRARY_TRACKS",
     CHANGE_LIBRARY_SORT: "CHANGE_LIBRARY_SORT",
     TOGGLE_LIBRARY_PLAYLIST_FILTER: "TOGGLE_LIBRARY_PLAYLIST_FILTER",
+    TOGGLE_LIKED_SONGS_FILTER: "TOGGLE_LIKED_SONGS_FILTER",
     CHANGE_LIBRARY_FILTER: "CHANGE_LIBRARY_FILTER",
 
     // Liked songs
@@ -132,6 +133,7 @@ export const ActionCreator = {
     toggleUserPlaylist: (playlistId) => ({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId}),
     changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),
     toggleLibraryPlaylistFilter: (playlistId) => ({type: ActionType.TOGGLE_LIBRARY_PLAYLIST_FILTER, playlistId: playlistId}),
+    toggleLikedSongsFilter: () => ({type: ActionType.TOGGLE_LIKED_SONGS_FILTER}),
     changeLibraryFilter: (text) => ({type: ActionType.CHANGE_LIBRARY_FILTER, text: text}),
    
     // Add / Remove Liked Songs

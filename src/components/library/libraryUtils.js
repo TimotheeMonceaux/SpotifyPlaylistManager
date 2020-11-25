@@ -38,15 +38,23 @@ export const filterTrack = (track, text) => {
 }
 
 export const getLibraryFilteringFunction = (libraryFilter, playlists) => {
-    if (isNullOrEmpty(libraryFilter.playlists) && libraryFilter.text === "")
-        return () => true;
+    // Text input section
+    let textFilter = libraryFilter.text === "" ?
+                         () => true :
+                          (track) => filterTrack(track, libraryFilter.text);
 
-    if (isNullOrEmpty(libraryFilter.playlists))
-        return (track) => filterTrack(track, libraryFilter.text);
-
+    // Playlists section
     let mustBeInPlaylist = playlists.filter((p) => libraryFilter.playlists.includes(p.id));
-    if (isNullOrEmpty(libraryFilter.text))
-        return (track) => mustBeInPlaylist.some((p) => trackInPlaylist(track, p));
+    let playlistFilter = isNullOrEmpty(libraryFilter.playlists) ? 
+                            () => true :
+                            (track) => mustBeInPlaylist.some((p) => trackInPlaylist(track, p));
 
-    return (track) => mustBeInPlaylist.some((p) => trackInPlaylist(track, p)) && filterTrack(track, libraryFilter.text);
+    // Liked songs section
+    let likedSongsFilter = !libraryFilter.likedSongs ? 
+                            () => true :
+                            (track) => track.liked;
+
+    return (track) => textFilter(track)
+                      && playlistFilter(track) 
+                      && likedSongsFilter(track);
 }

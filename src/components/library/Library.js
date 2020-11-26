@@ -5,14 +5,15 @@ import styled from 'styled-components';
 import { ActionCreator, LibrarySort } from '../../redux/actions';
 import './Library.css';
 import { getLibrarySortingFunction, getTitleArrowsUrl, getArtistArrowsUrl, getAlbumArrowsUrl, getLibraryFilteringFunction } from './libraryUtils';
-import Track from './track';
+import Track from './Track';
+import LibraryControls from './LibraryControls';
 
 // Styled
 const StyledLibrary = styled.div`
     color: white;
 `;
 
-const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter,
+const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter, libraryDisplay,
                    onLikedSongsClicked, onTitleClicked, onArtistClicked, onAlbumClicked, onPlaylistClicked, 
                    onNotInPlaylistClicked, onInPlaylistClicked, onNotLikedClicked, onLikedClicked}) => (
     <StyledLibrary>
@@ -31,6 +32,7 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
             {Object.values(library)
                     .filter(getLibraryFilteringFunction(libraryFilter, userPlaylists))
                     .sort(getLibrarySortingFunction(librarySort))
+                    .slice((libraryDisplay.page - 1) * libraryDisplay.number, libraryDisplay.page * libraryDisplay.number)
                     .map((track) => <Track key={track.id} 
                                            userToken={userToken} 
                                            track={track} 
@@ -41,11 +43,13 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
                                            onNotLikedClicked={onNotLikedClicked} />)}
             </tbody>
         </table>
+        <LibraryControls />
     </StyledLibrary>
 )
 PLibrary.propTypes = {
     userToken: PropTypes.string.isRequired,
     library: PropTypes.object.isRequired,
+    libraryDisplay: PropTypes.object.isRequired,
     librarySort: PropTypes.object.isRequired,
     libraryFilter: PropTypes.object.isRequired,
     userPlaylists: PropTypes.array.isRequired
@@ -57,6 +61,7 @@ const mapStateToProps = state => {
         userToken: state.userToken,
         library: state.library,
         librarySort: state.librarySort,
+        libraryDisplay: state.libraryDisplay,
         libraryFilter: state.libraryFilter,
         userPlaylists: state.userPlaylists
     };

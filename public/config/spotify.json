@@ -1,5 +1,5 @@
 {
-    "environment": "PROD",
+    "environment": "TEST",
     "clientId": "097faee1460d41f0a6d66aaf986646cf",
     "testState": "/config/teststate.json"
 }

@@ -119,6 +119,25 @@ const librarySort = (librarySort = {sort: LibrarySort.DEFAULT, asc: 1}, action) 
     return librarySort;
 }
 
+const libraryDisplayPage = (page = 1, action) => {
+    if (action.type === ActionType.FORCE_STATE)
+        return action.newState.libraryDisplay.page;
+
+    return page;
+}
+
+const libraryDisplayNumber = (number = 25, action) => {
+    if (action.type === ActionType.FORCE_STATE)
+        return action.newState.libraryDisplay.number;
+
+    return number;
+}
+
+const libraryDisplay = combineReducers({
+    page: libraryDisplayPage,
+    number: libraryDisplayNumber
+});
+
 const libraryFilterPlaylists = (playlists = [], action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.libraryFilter.playlists;
@@ -172,6 +191,7 @@ const reducer = combineReducers ({
     library,
     loadingStatus,
     librarySort,
+    libraryDisplay,
     libraryFilter
 });
 

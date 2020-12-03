@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Toolbar from '../Toolbar';
 import { Redirect } from 'react-router-dom';
 import { isStateLoaded } from '../../redux/store-utils';
+import { HLayout } from '../Layout';
 
 
 // Presentational Component
@@ -16,11 +17,13 @@ class PLibraryController extends React.Component {
         if (!this.props.userToken) return <Redirect to={"/"} />
         if (!isStateLoaded(this.props.loadingStatus)) return <Redirect to={"/loading"} />;
         return <div><HeaderBar />
-                 <Container>
+                 <Container fluid>
                     <Row style={{marginTop: "25px", marginBottom: "10px"}}><Toolbar /></Row>
                     <Row>
                         <Col>
-                            <Library />
+                            <HLayout>
+                                <Library />
+                            </HLayout>
                         </Col>
                     </Row>
                 </Container>

@@ -15,8 +15,11 @@ const StyledLibrary = styled.div`
 
 const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter, libraryDisplay,
                    onLikedSongsClicked, onTitleClicked, onArtistClicked, onAlbumClicked, onPlaylistClicked, 
-                   onNotInPlaylistClicked, onInPlaylistClicked, onNotLikedClicked, onLikedClicked}) => (
-    <StyledLibrary>
+                   onNotInPlaylistClicked, onInPlaylistClicked, onNotLikedClicked, onLikedClicked}) => {
+
+    const filteredLibrary = Object.values(library).filter(getLibraryFilteringFunction(libraryFilter, userPlaylists));
+
+    return <StyledLibrary>
         <table>
             <thead>
                 <tr>
@@ -29,23 +32,21 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
                 </tr>
             </thead>
             <tbody>
-            {Object.values(library)
-                    .filter(getLibraryFilteringFunction(libraryFilter, userPlaylists))
-                    .sort(getLibrarySortingFunction(librarySort))
-                    .slice((libraryDisplay.page - 1) * libraryDisplay.rows, libraryDisplay.page * libraryDisplay.rows)
-                    .map((track) => <Track key={track.id} 
-                                           userToken={userToken} 
-                                           track={track} 
-                                           userPlaylists={userPlaylists} 
-                                           onNotInPlaylistClicked={onNotInPlaylistClicked} 
-                                           onInPlaylistClicked={onInPlaylistClicked}
-                                           onLikedClicked={onLikedClicked}
-                                           onNotLikedClicked={onNotLikedClicked} />)}
+            {filteredLibrary.sort(getLibrarySortingFunction(librarySort))
+                            .slice((libraryDisplay.page - 1) * libraryDisplay.rows, libraryDisplay.page * libraryDisplay.rows)
+                            .map((track) => <Track key={track.id} 
+                                                    userToken={userToken} 
+                                                    track={track} 
+                                                    userPlaylists={userPlaylists} 
+                                                    onNotInPlaylistClicked={onNotInPlaylistClicked} 
+                                                    onInPlaylistClicked={onInPlaylistClicked}
+                                                    onLikedClicked={onLikedClicked}
+                                                    onNotLikedClicked={onNotLikedClicked} />)}
             </tbody>
         </table>
-        <LibraryControls />
+        <LibraryControls filteredLibrarySize={filteredLibrary.length} />
     </StyledLibrary>
-)
+ }
 PLibrary.propTypes = {
     userToken: PropTypes.string.isRequired,
     library: PropTypes.object.isRequired,

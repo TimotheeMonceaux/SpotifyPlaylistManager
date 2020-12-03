@@ -58,3 +58,5 @@ export const getLibraryFilteringFunction = (libraryFilter, playlists) => {
                       && playlistFilter(track) 
                       && likedSongsFilter(track);
 }
+
+export const getLastPageNumber = (size, rows) => Math.ceil(size / rows);

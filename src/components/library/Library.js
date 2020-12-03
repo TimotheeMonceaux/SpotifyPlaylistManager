@@ -32,7 +32,7 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
             {Object.values(library)
                     .filter(getLibraryFilteringFunction(libraryFilter, userPlaylists))
                     .sort(getLibrarySortingFunction(librarySort))
-                    .slice((libraryDisplay.page - 1) * libraryDisplay.number, libraryDisplay.page * libraryDisplay.number)
+                    .slice((libraryDisplay.page - 1) * libraryDisplay.rows, libraryDisplay.page * libraryDisplay.rows)
                     .map((track) => <Track key={track.id} 
                                            userToken={userToken} 
                                            track={track} 

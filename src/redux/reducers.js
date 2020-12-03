@@ -138,16 +138,16 @@ const libraryDisplayPage = (page = 1, action) => {
     return page;
 }
 
-const libraryDisplayNumber = (number = 25, action) => {
+const libraryDisplayRows = (rows = 25, action) => {
     if (action.type === ActionType.FORCE_STATE)
-        return action.newState.libraryDisplay.number;
+        return action.newState.libraryDisplay.rows;
 
-    return number;
+    return rows;
 }
 
 const libraryDisplay = combineReducers({
     page: libraryDisplayPage,
-    number: libraryDisplayNumber
+    rows: libraryDisplayRows
 });
 
 const libraryFilterPlaylists = (playlists = [], action) => {

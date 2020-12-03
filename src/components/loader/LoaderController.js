@@ -11,7 +11,7 @@ import { VLayout, HLayout } from '../Layout';
 
 // 1 - Load the user profile
 class PUserProfileLoader extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.environment !== "TEST" && this.props.userToken) {
             this.props.loadUserProfile(this.props.userToken);
         }
@@ -30,7 +30,7 @@ const UserProfileLoader = connect(
 
 // 2 - Load the user's playlists list
 class PPlaylistsListLoader extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.environment !== "TEST" && this.props.userToken) {
             this.props.loadUserPlaylists(this.props.userToken);
         }
@@ -49,7 +49,7 @@ const PlaylistsListLoader = connect(
 
 // 3 - Load the user's liked songs (also known as the spotify library)
 class PLikedSongsLoader extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.environment !== "TEST" && this.props.userToken) {
             this.props.loadLibraryTracks(this.props.userToken);
         }
@@ -68,7 +68,7 @@ const LikedSongsLoader = connect(
 
 // 4 - Load the playlists'tracks
 class PPlaylistsTracksLoader extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.userPlaylists.map(p => this.props.loadPlaylistTracks(this.props.userToken, p.id));
     }
 

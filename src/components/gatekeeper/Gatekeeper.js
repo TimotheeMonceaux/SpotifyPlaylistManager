@@ -23,7 +23,7 @@ const SSpotifyLogin = styled(SpotifyLogin)`
 
 // Presentational Component
 class PGatekeeper extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.loadInitialConfig();
     }
 

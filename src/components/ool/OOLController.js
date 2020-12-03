@@ -5,7 +5,6 @@ import { ActionCreator } from '../../redux/actions';
 import { Container, Row, Col } from 'react-bootstrap';
 import HeaderBar from '../headerbar/HeaderBar';
 import 'bootstrap/dist/css/bootstrap.css';
-import Toolbar from '../Toolbar';
 import { Redirect } from 'react-router-dom';
 import { isStateLoaded } from '../../redux/store-utils';
 
@@ -19,7 +18,6 @@ class POOLController extends React.Component {
         return <div>
             <HeaderBar />
                  <Container>
-                    <Row style={{marginTop: "25px", marginBottom: "10px"}}><Toolbar /></Row>
                     <Row>
                         <Col>
                             <p>Hello, World!</p>

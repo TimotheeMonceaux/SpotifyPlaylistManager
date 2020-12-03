@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ActionCreator, LibrarySort } from '../../redux/actions';
+import { getLibrarySliced } from '../../redux/selectors';
 import './Library.css';
-import { getLibrarySortingFunction, getTitleArrowsUrl, getArtistArrowsUrl, getAlbumArrowsUrl, getLibraryFilteringFunction } from './libraryUtils';
+import { getTitleArrowsUrl, getArtistArrowsUrl, getAlbumArrowsUrl } from './libraryUtils';
 import Track from './Track';
 import LibraryControls from './LibraryControls';
 
@@ -13,13 +14,9 @@ const StyledLibrary = styled.div`
     color: white;
 `;
 
-const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter, libraryDisplay,
+const PLibrary = ({userToken, librarySliced, librarySort, userPlaylists, libraryFilter,
                    onLikedSongsClicked, onTitleClicked, onArtistClicked, onAlbumClicked, onPlaylistClicked, 
-                   onNotInPlaylistClicked, onInPlaylistClicked, onNotLikedClicked, onLikedClicked}) => {
-
-    const filteredLibrary = Object.values(library).filter(getLibraryFilteringFunction(libraryFilter, userPlaylists));
-
-    return <StyledLibrary>
+                   onNotInPlaylistClicked, onInPlaylistClicked, onNotLikedClicked, onLikedClicked}) => <StyledLibrary>
         <table>
             <thead>
                 <tr>
@@ -32,9 +29,7 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
                 </tr>
             </thead>
             <tbody>
-            {filteredLibrary.sort(getLibrarySortingFunction(librarySort))
-                            .slice((libraryDisplay.page - 1) * libraryDisplay.rows, libraryDisplay.page * libraryDisplay.rows)
-                            .map((track) => <Track key={track.id} 
+            {librarySliced.map((track) => <Track key={track.id} 
                                                     userToken={userToken} 
                                                     track={track} 
                                                     userPlaylists={userPlaylists} 
@@ -44,13 +39,11 @@ const PLibrary = ({userToken, library, librarySort, userPlaylists, libraryFilter
                                                     onNotLikedClicked={onNotLikedClicked} />)}
             </tbody>
         </table>
-        <LibraryControls filteredLibrarySize={filteredLibrary.length} />
-    </StyledLibrary>
- }
+        <LibraryControls />
+    </StyledLibrary>;
 PLibrary.propTypes = {
     userToken: PropTypes.string.isRequired,
-    library: PropTypes.object.isRequired,
-    libraryDisplay: PropTypes.object.isRequired,
+    librarySliced: PropTypes.array.isRequired,
     librarySort: PropTypes.object.isRequired,
     libraryFilter: PropTypes.object.isRequired,
     userPlaylists: PropTypes.array.isRequired
@@ -60,9 +53,8 @@ PLibrary.propTypes = {
 const mapStateToProps = state => {
     return {
         userToken: state.userToken,
-        library: state.library,
+        librarySliced: getLibrarySliced(state),
         librarySort: state.librarySort,
-        libraryDisplay: state.libraryDisplay,
         libraryFilter: state.libraryFilter,
         userPlaylists: state.userPlaylists
     };

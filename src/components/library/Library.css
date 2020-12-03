@@ -28,3 +28,12 @@ img {
   height: 20px;
   cursor: pointer;
 }
+
+.toolbar {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.toolbar input {
+  min-width: 250px;
+}

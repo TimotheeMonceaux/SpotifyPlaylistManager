@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { HLayout } from '../Layout';
 import { ActionCreator } from '../../redux/actions';
+import { getFilteredLibrarySize } from '../../redux/selectors';
 import { getLastPageNumber } from './libraryUtils';
 
 // Styled
@@ -51,7 +52,8 @@ PLibraryControls.propTypes = {
 // Container Component
 const mapStateToProps = state => {
     return {
-        libraryDisplay: state.libraryDisplay
+        libraryDisplay: state.libraryDisplay,
+        filteredLibrarySize: getFilteredLibrarySize(state)
     };
 }
 const mapDispatchToProps = dispatch => {

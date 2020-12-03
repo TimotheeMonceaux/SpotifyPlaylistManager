@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Library from './Library';
 import HeaderBar from '../headerbar/HeaderBar';
 import 'bootstrap/dist/css/bootstrap.css';
-import Toolbar from '../Toolbar';
+import Toolbar from './Toolbar';
 import { Redirect } from 'react-router-dom';
 import { isStateLoaded } from '../../redux/store-utils';
 import { HLayout } from '../Layout';
@@ -18,7 +18,7 @@ class PLibraryController extends React.Component {
         if (!isStateLoaded(this.props.loadingStatus)) return <Redirect to={"/loading"} />;
         return <div><HeaderBar />
                  <Container fluid>
-                    <Row style={{marginTop: "25px", marginBottom: "10px"}}><Toolbar /></Row>
+                    <Toolbar />
                     <Row>
                         <Col>
                             <HLayout>

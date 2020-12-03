@@ -123,6 +123,18 @@ const libraryDisplayPage = (page = 1, action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.libraryDisplay.page;
 
+    if (action.type === ActionType.LIBRARY_DISPLAY_PAGE_FIRST)
+        return 1;
+
+    if (action.type === ActionType.LIBRARY_DISPLAY_PAGE_PREVIOUS)
+        return page - 1;
+
+    if (action.type === ActionType.LIBRARY_DISPLAY_PAGE_NEXT)
+        return page + 1;
+
+    if (action.type === ActionType.LIBRARY_DISPLAY_PAGE_LAST)
+        return 81;
+
     return page;
 }
 

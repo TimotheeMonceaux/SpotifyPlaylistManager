@@ -21,6 +21,12 @@ export const ActionType = {
     // Library
     LOAD_LIBRARY_TRACKS: "LOAD_LIBRARY_TRACKS",
     APPEND_LIBRARY_TRACKS: "APPEND_LIBRARY_TRACKS",
+
+    // Library Display
+    LIBRARY_DISPLAY_PAGE_FIRST: "LIBRARY_DISPLAY_PAGE_FIRST",
+    LIBRARY_DISPLAY_PAGE_PREVIOUS: "LIBRARY_DISPLAY_PAGE_PREVIOUS",
+    LIBRARY_DISPLAY_PAGE_NEXT: "LIBRARY_DISPLAY_PAGE_NEXT",
+    LIBRARY_DISPLAY_PAGE_LAST: "LIBRARY_DISPLAY_PAGE_LAST",
     CHANGE_LIBRARY_SORT: "CHANGE_LIBRARY_SORT",
     TOGGLE_LIBRARY_PLAYLIST_FILTER: "TOGGLE_LIBRARY_PLAYLIST_FILTER",
     TOGGLE_LIKED_SONGS_FILTER: "TOGGLE_LIKED_SONGS_FILTER",
@@ -130,6 +136,10 @@ export const ActionCreator = {
     isPlaylistLoaded: () => ({type: ActionType.IS_PLAYLIST_LOADED}),
 
     // Library displays
+    libraryDisplayPageFirst: () => ({type: ActionType.LIBRARY_DISPLAY_PAGE_FIRST}),
+    libraryDisplayPagePrevious: () => ({type: ActionType.LIBRARY_DISPLAY_PAGE_PREVIOUS}),
+    libraryDisplayPageNext: () => ({type: ActionType.LIBRARY_DISPLAY_PAGE_NEXT}),
+    libraryDisplayPageLast: () => ({type: ActionType.LIBRARY_DISPLAY_PAGE_LAST}),
     toggleUserPlaylist: (playlistId) => ({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId}),
     changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),
     toggleLibraryPlaylistFilter: (playlistId) => ({type: ActionType.TOGGLE_LIBRARY_PLAYLIST_FILTER, playlistId: playlistId}),

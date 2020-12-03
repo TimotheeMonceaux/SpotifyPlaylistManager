@@ -2,10 +2,11 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import UserProfileCard from './headerbar/UserProfileCard';
-import Playlists from './headerbar/Playlists';
+import UserProfileCard from './UserProfileCard';
+import Playlists from './Playlists';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import "./headerbar.css";
 
 const Separator = styled.div`
     height: 40px;

@@ -145,7 +145,7 @@ const libraryDisplayPage = (page = 1, action) => {
     return page;
 }
 
-const libraryDisplayRows = (rows = 25, action) => {
+const libraryDisplayRows = (rows = 20, action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.libraryDisplay.rows;
 

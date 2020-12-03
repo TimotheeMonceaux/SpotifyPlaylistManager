@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import Library from './Library';
-import HeaderBar from '../HeaderBar';
+import HeaderBar from '../headerbar/HeaderBar';
 import 'bootstrap/dist/css/bootstrap.css';
 import Toolbar from '../Toolbar';
 import { Redirect } from 'react-router-dom';

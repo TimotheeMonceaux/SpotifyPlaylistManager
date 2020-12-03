@@ -20,8 +20,8 @@ const PLibraryControls = ({libraryDisplay, librarySize,
     <button type="button" className="btn btn-success" onClick={() => libraryDisplayPagePrevious()} disabled={libraryDisplay.page <= 1}>Previous</button>
     <div>Page {libraryDisplay.page} of {Math.ceil(librarySize / libraryDisplay.rows)}</div>
     <div>{libraryDisplay.rows} rows</div>
-    <button type="button" className="btn btn-success" onClick={() => libraryDisplayPageNext()} disabled={libraryDisplay.page >= getLastPageNumber(librarySize, libraryDisplay.rows)}>Next</button>
-    <button type="button" className="btn btn-success" onClick={() => libraryDisplayPageLast()} disabled={libraryDisplay.page >= getLastPageNumber(librarySize, libraryDisplay.rows)}>Last</button>
+    <button type="button" className="btn btn-success" onClick={() => libraryDisplayPageNext(getLastPageNumber(librarySize, libraryDisplay.rows))} disabled={libraryDisplay.page >= getLastPageNumber(librarySize, libraryDisplay.rows)}>Next</button>
+    <button type="button" className="btn btn-success" onClick={() => libraryDisplayPageLast(getLastPageNumber(librarySize, libraryDisplay.rows))} disabled={libraryDisplay.page >= getLastPageNumber(librarySize, libraryDisplay.rows)}>Last</button>
 </StyledLibraryControls>;
 PLibraryControls.propTypes = {
     libraryDisplay: PropTypes.object.isRequired,
@@ -39,8 +39,8 @@ const mapDispatchToProps = dispatch => {
     return {
         libraryDisplayPageFirst: () => {dispatch(ActionCreator.libraryDisplayPageFirst())},
         libraryDisplayPagePrevious: () => {dispatch(ActionCreator.libraryDisplayPagePrevious())},
-        libraryDisplayPageNext: () => {dispatch(ActionCreator.libraryDisplayPageNext())},
-        libraryDisplayPageLast: () => {dispatch(ActionCreator.libraryDisplayPageLast())}
+        libraryDisplayPageNext: (lastPage) => {dispatch(ActionCreator.libraryDisplayPageNext(lastPage))},
+        libraryDisplayPageLast: (lastPage) => {dispatch(ActionCreator.libraryDisplayPageLast(lastPage))}
     }
 }
 const LibraryControls = connect(mapStateToProps, mapDispatchToProps)(PLibraryControls)

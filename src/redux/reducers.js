@@ -127,13 +127,13 @@ const libraryDisplayPage = (page = 1, action) => {
         return 1;
 
     if (action.type === ActionType.LIBRARY_DISPLAY_PAGE_PREVIOUS)
-        return page - 1;
+        return Math.max(1, page - 1);
 
     if (action.type === ActionType.LIBRARY_DISPLAY_PAGE_NEXT)
-        return page + 1;
+        return Math.min(action.lastPage, page + 1);
 
     if (action.type === ActionType.LIBRARY_DISPLAY_PAGE_LAST)
-        return 81;
+        return action.lastPage;
 
     return page;
 }

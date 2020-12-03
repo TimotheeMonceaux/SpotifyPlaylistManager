@@ -138,8 +138,8 @@ export const ActionCreator = {
     // Library displays
     libraryDisplayPageFirst: () => ({type: ActionType.LIBRARY_DISPLAY_PAGE_FIRST}),
     libraryDisplayPagePrevious: () => ({type: ActionType.LIBRARY_DISPLAY_PAGE_PREVIOUS}),
-    libraryDisplayPageNext: () => ({type: ActionType.LIBRARY_DISPLAY_PAGE_NEXT}),
-    libraryDisplayPageLast: () => ({type: ActionType.LIBRARY_DISPLAY_PAGE_LAST}),
+    libraryDisplayPageNext: (lastPage) => ({type: ActionType.LIBRARY_DISPLAY_PAGE_NEXT, lastPage: lastPage}),
+    libraryDisplayPageLast: (lastPage) => ({type: ActionType.LIBRARY_DISPLAY_PAGE_LAST, lastPage: lastPage}),
     toggleUserPlaylist: (playlistId) => ({type: ActionType.TOGGLE_USER_PLAYLIST, playlistId: playlistId}),
     changeLibrarySort: (librarySort) => ({type: ActionType.CHANGE_LIBRARY_SORT, librarySort: librarySort}),
     toggleLibraryPlaylistFilter: (playlistId) => ({type: ActionType.TOGGLE_LIBRARY_PLAYLIST_FILTER, playlistId: playlistId}),

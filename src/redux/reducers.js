@@ -5,6 +5,7 @@ import _ from 'lodash';
 import mapPlaylist from '../model/playlist';
 import { arrayToObject } from '../utils/object.js';
 import { cleanString } from '../utils/string.js';
+import { shouldResetPage } from './store-utils';
 
 const environment = (environment = "", action) => {
     if (action.type === ActionType.FORCE_STATE)
@@ -134,6 +135,12 @@ const libraryDisplayPage = (page = 1, action) => {
 
     if (action.type === ActionType.LIBRARY_DISPLAY_PAGE_LAST)
         return action.lastPage;
+    
+    if (action.type === ActionType.LIBRARY_DISPLAY_PAGE_CHOOSE)
+        return Math.max(1, Math.min(action.choice, action.lastPage));
+
+    if (shouldResetPage(action.type))
+        return 1;
 
     return page;
 }
@@ -141,6 +148,9 @@ const libraryDisplayPage = (page = 1, action) => {
 const libraryDisplayRows = (rows = 25, action) => {
     if (action.type === ActionType.FORCE_STATE)
         return action.newState.libraryDisplay.rows;
+
+    if (action.type === ActionType.LIBRARY_DISPLAY_ROWS_CHOOSE)
+        return action.choice;
 
     return rows;
 }

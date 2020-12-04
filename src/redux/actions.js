@@ -92,7 +92,7 @@ export const ActionCreator = {
     addUserProfile: (userProfile) => ({type: ActionType.ADD_USER_PROFILE, userProfile: userProfile}),
 
     // User Playlists
-    loadUserPlaylists: (userToken) => ((dispatch) => fetch("https://api.spotify.com/v1/me/playlists",
+    loadUserPlaylists: (userToken) => ((dispatch) => fetch("https://api.spotify.com/v1/me/playlists?limit=50",
                                                 {
                                                     method: 'GET',
                                                     headers: new Headers({"Authorization": "Bearer " + userToken}),
@@ -100,7 +100,7 @@ export const ActionCreator = {
                                                     cache: 'default' 
                                                 })
                                         .then(response => response.json(), error => console.log(error))
-                                        .then(json => dispatch(ActionCreator.addUserPlaylists(json.items)))),
+                                        .then(json => dispatch(ActionCreator.addUserPlaylists(json.items.filter((p) => p.owner.display_name !== "Spotify"))))),
     addUserPlaylists: (userPlaylists) => (dispatch) => dispatch({type: ActionType.ADD_USER_PLAYLISTS, userPlaylists: userPlaylists}),
 
     // User Liked Songs

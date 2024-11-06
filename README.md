@@ -31,14 +31,10 @@ An online version is currently available at the following address: https://spoti
 - **Spotify API**: Utilizes the [Spotify Web API](https://developer.spotify.com/documentation/web-api/) for authentication, fetching playlists, and managing song data.
 - **OAuth2 Authentication**: OAuth2 flow for securely authenticating users with their Spotify accounts.
 
-## Prerequisites
 
-Before you begin, make sure you have the following:
+## Local Installation
 
-- A Spotify Developer account and access to the [Spotify Web API](https://developer.spotify.com/)
-- Node.js and npm installed on your local machine.
-
-## Installation
+Before you begin, make sure you have Node.js and npm installed on your local machine.
 
 ### 1. Clone the repository
 

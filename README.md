@@ -1,68 +1,84 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Spotify Playlists Manager
 
-## Available Scripts
+Spotify Playlists Manager is a web application that allows users to manage and curate their Spotify playlists easily. By leveraging the Spotify Developer API, this app enables users to view their liked songs, manage their playlists, and add or remove songs from their playlists with ease.
 
-In the project directory, you can run:
+An online version is currently available at the following address: https://spotify-playlist-manager-coral.vercel.app/
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Login with Spotify**: Use your Spotify account to log in and grant necessary permissions.
+- **Manage Playlists**: View all your playlists and the songs within them.
+- **Add/Remove Songs**: Easily add or remove songs from your playlists or liked songs by clicking on ticks and crosses in a table.
+- **Sorting & Filtering**: Sort and filter songs to quickly find what you're looking for.
+- **Real-Time Syncing**: Any changes made to your playlists are instantly reflected in your Spotify account.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Screenshots
 
-### `npm test`
+![image](https://github.com/user-attachments/assets/63ab8420-3c0d-437c-8efe-193937f98437)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## How It Works
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Login**: After landing on the website, click the login button to authenticate with your Spotify account. You will be prompted to grant the app permissions to access your playlists and liked songs.
+2. **View Your Songs**: Once logged in, you will see a table with your songs listed in rows and playlists as columns.
+3. **Add/Remove Songs**: Click on the tick or cross next to a song in a playlist to add or remove it. The table will update in real time.
+4. **Sort & Filter**: Use the built-in sorting and filtering options to organize your songs and playlists more effectively.
+5. **Sync**: Changes you make in the app will be reflected in your actual Spotify account.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Frontend**: HTML, CSS, JavaScript (React + Redux)
+- **Spotify API**: Utilizes the [Spotify Web API](https://developer.spotify.com/documentation/web-api/) for authentication, fetching playlists, and managing song data.
+- **OAuth2 Authentication**: OAuth2 flow for securely authenticating users with their Spotify accounts.
 
-### `npm run eject`
+## Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Before you begin, make sure you have the following:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- A Spotify Developer account and access to the [Spotify Web API](https://developer.spotify.com/)
+- Node.js and npm installed on your local machine.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Installation
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 1. Clone the repository
 
-## Learn More
+```bash
+git clone https://github.com/TimotheeMonceaux/spotify-playlists-manager.git
+cd spotify-playlists-manager
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 2. Install dependencies
+Run the following command to install the necessary dependencies:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm install
+```
 
-### Code Splitting
+### 3. Start the development server
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```bash
+npm run dev
+```
+Your app will be available at http://localhost:3000 in your browser.
 
-### Analyzing the Bundle Size
+## Usage
+- Open the application in your browser.
+- Log in with your Spotify account to authorize the app.
+- After logging in, the app will display your playlists and liked songs in a table format.
+- Use the sorting and filtering options to find specific songs.
+- Click the ticks and crosses to add/remove songs from your playlists.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-### Making a Progressive Web App
+## Contributing
+If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. Please follow these steps:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- Fork the repo.
+- Create a new branch (git checkout -b feature/your-feature-name).
+- Commit your changes (git commit -am 'Add new feature').
+- Push to the branch (git push origin feature/your-feature-name).
+- Open a pull request.
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Contact
+For any issues or feature requests, feel free to open an issue on GitHub.

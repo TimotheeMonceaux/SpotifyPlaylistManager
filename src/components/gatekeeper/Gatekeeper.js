@@ -3,23 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../../redux/actions';
 import { VLayout, HLayout } from '../Layout';
-import SpotifyLogin from 'react-spotify-login';
 import styled from 'styled-components';
 import Loading from '../Loading';
 import './Gatekeeper.css';
 import { Redirect } from 'react-router-dom';
-
-const SSpotifyLogin = styled(SpotifyLogin)`
-    color: white;
-    background-color: forestgreen;
-    padding: 25px;
-    font-weight: bold;
-    border-radius: 20px;
-    font-family: Arial;
-    font-size: 150%;
-    border: none;
-    cursor: pointer;
-`;
 
 // Presentational Component
 class PGatekeeper extends React.Component {
@@ -42,11 +29,11 @@ class PGatekeeper extends React.Component {
                     </VLayout>
                 </HLayout>
                 <HLayout>
-                    <SSpotifyLogin  clientId={this.props.clientId}
+                   {/* <SSpotifyLogin  clientId={this.props.clientId}
                                     redirectUri={window.location.href + "callback/"}
                                     scope="user-read-private user-read-email user-library-read user-library-modify playlist-read-private playlist-modify-public playlist-modify-private playlist-read-collaborative"
                                     onSuccess={json => this.props.onUserTokenRetrieved(json)}
-                                    onFailure={json => console.error(json)}/>
+                                    onFailure={json => console.error(json)}/> */}
                 </HLayout>
             </VLayout>;
         }

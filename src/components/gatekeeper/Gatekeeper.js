@@ -3,37 +3,88 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../../redux/actions';
 import { VLayout, HLayout } from '../Layout';
-import SpotifyLogin from 'react-spotify-login';
-import styled from 'styled-components';
 import Loading from '../Loading';
 import './Gatekeeper.css';
 import { Redirect } from 'react-router-dom';
-
-const SSpotifyLogin = styled(SpotifyLogin)`
-    color: white;
-    background-color: forestgreen;
-    padding: 25px;
-    font-weight: bold;
-    border-radius: 20px;
-    font-family: Arial;
-    font-size: 150%;
-    border: none;
-    cursor: pointer;
-`;
+import {
+    setClientId,
+    redirectToSpotifyLogin,
+    handleAuthorizationCallback
+} from '../../utils/spotifyAuth';
 
 // Presentational Component
 class PGatekeeper extends React.Component {
+    state = {
+        error: null,
+        exchangingCode: false
+    };
+
     componentDidMount() {
         this.props.loadInitialConfig();
+        if (this.props.clientId) {
+            setClientId(this.props.clientId);
+        }
+        this.completeLoginIfRedirectedBack();
     }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.clientId && this.props.clientId !== prevProps.clientId) {
+            setClientId(this.props.clientId);
+        }
+    }
+
+    // If Spotify just redirected the browser back here with an
+    // authorization `code` (and `state`), exchange it for an access token.
+    // See https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow
+    async completeLoginIfRedirectedBack() {
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const state = params.get('state');
+        const authError = params.get('error');
+
+        if (authError) {
+            this.setState({ error: `Spotify login failed: ${authError}` });
+            this.cleanUrl();
+            return;
+        }
+        if (!code) {
+            return;
+        }
+
+        this.setState({ exchangingCode: true, error: null });
+        try {
+            const accessToken = await handleAuthorizationCallback(code, state);
+            this.props.onUserTokenRetrieved(accessToken);
+        } catch (err) {
+            this.setState({ error: err.message });
+        } finally {
+            this.setState({ exchangingCode: false });
+            this.cleanUrl();
+        }
+    }
+
+    // Strip ?code=...&state=... etc. from the URL once we're done with them.
+    cleanUrl() {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    handleLoginClick = () => {
+        this.setState({ error: null });
+        redirectToSpotifyLogin().catch(err => this.setState({ error: err.message }));
+    };
 
     render() {
         // Step 1 - Retrieve the app's client id
         if (this.props.clientId === "") {
             return <VLayout><HLayout><Loading /></HLayout></VLayout>;
         }
+
         // Step 2 - Retrieve the user token
         if (this.props.userToken === "") {
+            if (this.state.exchangingCode) {
+                return <VLayout><HLayout><Loading /></HLayout></VLayout>;
+            }
+
             return <VLayout className="login">
                 <HLayout>
                     <VLayout>
@@ -42,16 +93,17 @@ class PGatekeeper extends React.Component {
                     </VLayout>
                 </HLayout>
                 <HLayout>
-                    <SSpotifyLogin  clientId={this.props.clientId}
-                                    redirectUri={window.location.href + "callback/"}
-                                    scope="user-read-private user-read-email user-library-read user-library-modify playlist-read-private playlist-modify-public playlist-modify-private playlist-read-collaborative"
-                                    onSuccess={json => this.props.onUserTokenRetrieved(json)}
-                                    onFailure={json => console.error(json)}/>
+                    <VLayout>
+                        {this.state.error && <p className="login-error">{this.state.error}</p>}
+                        <button className="spotify-login-button" onClick={this.handleLoginClick}>
+                            Log in with Spotify
+                        </button>
+                    </VLayout>
                 </HLayout>
             </VLayout>;
         }
         return <Redirect to="/loading" />;
-        
+
     }
 }
 PGatekeeper.propTypes = {
@@ -69,7 +121,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         loadInitialConfig: () => {dispatch(ActionCreator.loadInitialConfig())},
-        onUserTokenRetrieved: (json) => {dispatch(ActionCreator.addUserToken(json.access_token))}
+        onUserTokenRetrieved: (accessToken) => {dispatch(ActionCreator.addUserToken(accessToken))}
     }
 }
 const Gatekeeper = connect(

@@ -15,14 +15,13 @@
     "react-dom": "^16.14.0",
     "react-redux": "^6.0.1",
     "react-scripts": "2.1.5",
-    "react-spotify-login": "^0.9.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^4.4.1"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "react-scripts --openssl-legacy-provider start",
     "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",

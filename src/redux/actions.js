@@ -1,3 +1,5 @@
+import { spotifyApiFetch } from '../utils/spotifyAuth';
+
 export const ActionType = {
     FORCE_STATE: "FORCE_STATE",
     SET_ENVIRONMENT: "SET_ENVIRONMENT",
@@ -74,66 +76,79 @@ export const ActionCreator = {
                                                                 .then(response => response.json(), error => console.log(error))
                                                                 .then(testState => {dispatch(ActionCreator.forceState(testState))})
                                                        else
-                                                           dispatch(ActionCreator.setClientId(json.clientId));})),
+                                                           dispatch(ActionCreator.setClientId(process.env.REACT_APP_SPOTIFY_CLIENT_ID || json.clientId));})),
 
     // Spotify Token
     addUserToken: (userToken) => ({type: ActionType.SET_USER_TOKEN, userToken: userToken}),
 
     // User Profile
-    loadUserProfile: (userToken) => ((dispatch) => fetch("https://api.spotify.com/v1/me",
-                                                {
-                                                    method: 'GET',
-                                                    headers: new Headers({"Authorization": "Bearer " + userToken}),
-                                                    mode: 'cors',
-                                                    cache: 'default' 
-                                                })
-                                        .then(response => response.json(), error => console.log(error))
-                                        .then(json => dispatch(ActionCreator.addUserProfile(json)))),
+    // GET /me is unaffected by the Feb 2026 migration - still works as-is.
+    // Note the response no longer includes country/email/explicit_content/followers/product.
+    loadUserProfile: (userToken) => ((dispatch) => spotifyApiFetch('/me')
+                                        .then(profile => dispatch(ActionCreator.addUserProfile(profile)))
+                                        .catch(error => console.error('Failed to load user profile:', error.message))),
     addUserProfile: (userProfile) => ({type: ActionType.ADD_USER_PROFILE, userProfile: userProfile}),
 
     // User Playlists
-    loadUserPlaylists: (userToken) => ((dispatch) => fetch("https://api.spotify.com/v1/me/playlists?limit=50",
-                                                {
-                                                    method: 'GET',
-                                                    headers: new Headers({"Authorization": "Bearer " + userToken}),
-                                                    mode: 'cors',
-                                                    cache: 'default' 
-                                                })
-                                        .then(response => response.json(), error => console.log(error))
-                                        .then(json => dispatch(ActionCreator.addUserPlaylists(json.items.filter((p) => p.owner.display_name !== "Spotify"))))),
+    // GET /me/playlists is unaffected by the migration.
+    // NOTE: this list includes playlists you follow but don't own/collaborate
+    // on. Spotify only returns track items (via GET /playlists/{id}/items)
+    // for playlists you own or collaborate on - see loadPlaylistTracks below,
+    // which now skips (rather than crashes on) the rest.
+    loadUserPlaylists: (userToken) => ((dispatch) => spotifyApiFetch('/me/playlists?limit=50')
+                                        .then(json => dispatch(ActionCreator.addUserPlaylists(json.items.filter((p) => p.owner.display_name !== "Spotify"))))
+                                        .catch(error => console.error('Failed to load playlists:', error.message))),
     addUserPlaylists: (userPlaylists) => (dispatch) => dispatch({type: ActionType.ADD_USER_PLAYLISTS, userPlaylists: userPlaylists}),
 
     // User Liked Songs
-    loadLibraryTracks: (userToken, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?market=from_token&limit=50&offset="+offset,
-                                                {
-                                                    method: 'GET',
-                                                    headers: new Headers({"Authorization": "Bearer " + userToken}),
-                                                    mode: 'cors',
-                                                    cache: 'default' 
-                                                })
-                                        .then(response => response.json(), error => console.log(error))
-                                        .then(json => {dispatch(ActionCreator.appendLibraryTracks(json.items))
-                                                        if (json.next !== null)
-                                                            dispatch(ActionCreator.loadLibraryTracks(userToken, offset + json.limit))
-                                                        else 
-                                                            dispatch(ActionCreator.isLibraryLoaded())})),
+    // Listing saved tracks is still GET /me/tracks - the migration only
+    // replaced the *save/remove/contains* calls with /me/library, not this
+    // GET. (There is no GET /me/library for listing.)
+    // "market=from_token" is also no longer a valid market value - omit the
+    // param and Spotify infers the market from the user's token.
+    loadLibraryTracks: (userToken, offset = 0) => ((dispatch) => spotifyApiFetch('/me/tracks?limit=50&offset=' + offset)
+                                        .then(json => {
+                                            dispatch(ActionCreator.appendLibraryTracks(json.items));
+                                            if (json.next !== null) {
+                                                dispatch(ActionCreator.loadLibraryTracks(userToken, offset + json.limit));
+                                            } else {
+                                                dispatch(ActionCreator.isLibraryLoaded());
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Failed to load library tracks:', error.message);
+                                            dispatch(ActionCreator.isLibraryLoaded());
+                                        })),
     appendLibraryTracks: (tracks) => ({type: ActionType.APPEND_LIBRARY_TRACKS, tracks: tracks}),
     isLibraryLoaded: () => ({type: ActionType.IS_LIBRARY_LOADED}),
 
     // User Playlists tracks
-    loadPlaylistTracks: (userToken, playlistId, offset = 0) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks?fields=items(track(id%2Cname%2Calbum(name)%2Cartists(name)%2Curi))%2Climit%2Cnext%2Coffset%2Cprevious%2Ctotal&market=from_token&limit=100&offset="+offset,
-                                            {
-                                                method: 'GET',
-                                                headers: new Headers({"Authorization": "Bearer " + userToken}),
-                                                mode: 'cors',
-                                                cache: 'default' 
-                                            })
-                                        .then(response => response.json(), error => console.log(error))
-                                        .then(json => {dispatch(ActionCreator.appendPlaylistTracks(playlistId, json.items))
-                                                        if (json.next !== null)
-                                                            dispatch(ActionCreator.loadPlaylistTracks(userToken, playlistId, offset + json.limit))
-                                                        else
-                                                            dispatch(ActionCreator.isPlaylistLoaded())})),
+    // GET /playlists/{id}/tracks was renamed to GET /playlists/{id}/items,
+    // AND the "track" field inside each item was renamed to "item" - so the
+    // `fields` filter has to ask for item(...) rather than track(...), or
+    // you'll get back empty objects.
+    // This also 403s for playlists you follow but don't own/collaborate on -
+    // that's expected now, so we skip the playlist rather than looping.
+    loadPlaylistTracks: (userToken, playlistId, offset = 0) => ((dispatch) => spotifyApiFetch(
+                                            '/playlists/' + playlistId + '/items?fields=items(item(id%2Cname%2Calbum(name)%2Cartists(name)%2Curi))%2Climit%2Cnext%2Coffset%2Cprevious%2Ctotal&limit=100&offset=' + offset
+                                        )
+                                        .then(json => {
+                                            // Spotify renamed each entry's `track` field to `item` for this
+                                            // endpoint. Map it back to `track` here so the rest of the app
+                                            // (reducers, display components) can keep using the old shape.
+                                            const tracks = json.items.map(entry => ({ ...entry, track: entry.item }));
+                                            dispatch(ActionCreator.appendPlaylistTracks(playlistId, tracks));
+                                            if (json.next !== null) {
+                                                dispatch(ActionCreator.loadPlaylistTracks(userToken, playlistId, offset + json.limit));
+                                            } else {
+                                                dispatch(ActionCreator.isPlaylistLoaded());
+                                            }
+                                        })
+                                        .catch(error => {
+                                            // Expected for playlists you follow but don't own/collaborate on.
+                                            console.warn(`Skipping playlist ${playlistId}: ${error.message}`);
+                                            dispatch(ActionCreator.isPlaylistLoaded());
+                                        })),
     appendPlaylistTracks: (playlistId, tracks) => ({type: ActionType.APPEND_PLAYLIST_TRACKS, playlistId: playlistId, tracks: tracks}),
     isPlaylistLoaded: () => ({type: ActionType.IS_PLAYLIST_LOADED}),
 
@@ -149,41 +164,42 @@ export const ActionCreator = {
     toggleLibraryPlaylistFilter: (playlistId) => ({type: ActionType.TOGGLE_LIBRARY_PLAYLIST_FILTER, playlistId: playlistId}),
     toggleLikedSongsFilter: () => ({type: ActionType.TOGGLE_LIKED_SONGS_FILTER}),
     changeLibraryFilter: (text) => ({type: ActionType.CHANGE_LIBRARY_FILTER, text: text}),
-   
+
     // Add / Remove Liked Songs
-    addLikedSong: (userToken, trackId) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?ids="+trackId,
-                                                    {
+    // PUT/DELETE /me/library replace the old per-type /me/tracks calls, but
+    // they take a JSON body of Spotify URIs - not an `ids` query string.
+    addLikedSong: (userToken, trackId) => ((dispatch) => spotifyApiFetch('/me/library', {
                                                         method: 'PUT',
-                                                        headers: new Headers({"Authorization": "Bearer " + userToken}),
-                                                        mode: 'cors',
-                                                        cache: 'default' 
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        body: JSON.stringify({ uris: ['spotify:track:' + trackId] })
                                                     })
-                                                .then(() => dispatch({type: ActionType.ADD_LIKED_SONG, trackId: trackId}), error => console.log(error))),
-    deleteLikedSong: (userToken, trackId) => ((dispatch) => fetch("https://api.spotify.com/v1/me/tracks?ids="+trackId,
-                                                    {
+                                                .then(() => dispatch({type: ActionType.ADD_LIKED_SONG, trackId: trackId}))
+                                                .catch(error => console.error('Failed to save track:', error.message))),
+    deleteLikedSong: (userToken, trackId) => ((dispatch) => spotifyApiFetch('/me/library', {
                                                         method: 'DELETE',
-                                                        headers: new Headers({"Authorization": "Bearer " + userToken}),
-                                                        mode: 'cors',
-                                                        cache: 'default' 
+                                                        headers: { 'Content-Type': 'application/json' },
+                                                        body: JSON.stringify({ uris: ['spotify:track:' + trackId] })
                                                     })
-                                                .then(() => dispatch({type: ActionType.DELETE_LIKED_SONG, trackId: trackId}), error => console.log(error))),
+                                                .then(() => dispatch({type: ActionType.DELETE_LIKED_SONG, trackId: trackId}))
+                                                .catch(error => console.error('Failed to remove track:', error.message))),
 
     // Add / Remove Playlists tracks
-    addPlaylistTrack: (userToken, playlistId, trackId) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks?uris=spotify:track:"+trackId,
-                                                    {
-                                                        method: 'POST',
-                                                        headers: new Headers({"Authorization": "Bearer " + userToken}),
-                                                        mode: 'cors',
-                                                        cache: 'default' 
-                                                    })
-                                                .then(() => dispatch({type: ActionType.ADD_PLAYLIST_TRACK, playlistId: playlistId, trackId: trackId}), error => console.log(error))),
-    deletePlaylistTrack: (userToken, playlistId, trackId) => ((dispatch) => fetch("https://api.spotify.com/v1/playlists/"+playlistId+"/tracks",
-                                                    {
-                                                        method: 'DELETE',
-                                                        headers: new Headers({"Authorization": "Bearer " + userToken, "Content-Type": "application/json"}),
-                                                        mode: 'cors',
-                                                        cache: 'default' ,
-                                                        body: JSON.stringify({tracks: [{uri: "spotify:track:"+trackId}]})
-                                                    })
-                                                .then(() => dispatch({type: ActionType.DELETE_PLAYLIST_TRACK, playlistId: playlistId, trackId: trackId}), error => console.log(error)))
+    // POST .../items still accepts `uris` as a query param, unchanged.
+    addPlaylistTrack: (userToken, playlistId, trackId) => ((dispatch) => spotifyApiFetch(
+                                                        '/playlists/' + playlistId + '/items?uris=spotify:track:' + trackId,
+                                                        { method: 'POST' }
+                                                    )
+                                                .then(() => dispatch({type: ActionType.ADD_PLAYLIST_TRACK, playlistId: playlistId, trackId: trackId}))
+                                                .catch(error => console.error('Failed to add track to playlist:', error.message))),
+    // DELETE .../items renamed the body parameter from `tracks` to `items`.
+    deletePlaylistTrack: (userToken, playlistId, trackId) => ((dispatch) => spotifyApiFetch(
+                                                        '/playlists/' + playlistId + '/items',
+                                                        {
+                                                            method: 'DELETE',
+                                                            headers: { 'Content-Type': 'application/json' },
+                                                            body: JSON.stringify({ items: [{ uri: 'spotify:track:' + trackId }] })
+                                                        }
+                                                    )
+                                                .then(() => dispatch({type: ActionType.DELETE_PLAYLIST_TRACK, playlistId: playlistId, trackId: trackId}))
+                                                .catch(error => console.error('Failed to remove track from playlist:', error.message)))
 };
